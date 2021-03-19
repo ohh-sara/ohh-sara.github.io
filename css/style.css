@@ -2,9 +2,13 @@
 @import url("../plugins/animate.min.css");
 @import url("../plugins/bootstrap.min.css");
 @import url("../plugins/bootstrap-select.min.css");
-@import url("../plugins/jquery-ui/jquery-ui.css");
 @import url("../plugins/timePicker.css");
 @import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700|Source+Sans+Pro:400,600,700");
+
+
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   line-height: 1.4;
@@ -14,6 +18,8 @@ body {
 .blank{
   height: 30px;
 }
+
+
 
 p {
   font-family: "Source Sans Pro", sans-serif;
@@ -101,6 +107,7 @@ li {
   margin: 0px;
 }
 
+
 .btn-style-one {
   font-size: 14px;
   font-weight: 600;
@@ -184,6 +191,8 @@ li {
 
 .navbar .navbar-nav li a:hover {
   color: #fff;
+  font-weight:bold;
+
 }
 
 .navbar .navbar-nav li.active a {

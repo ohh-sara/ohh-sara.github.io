@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@1/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@1/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/world.js"></script>
+    <script type="text/javascript" src="https://oisanjavax.github.io/echarts-wordcloud/dist/echarts-wordcloud.min.js"></script>
+    <style>
+        body{
+            background:url('');
+            background-size: cover;
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="charts2" style="width: 100%;height:100%;text-align: center"></div>
+<script type="text/javascript">
+    var dom = document.getElementById("charts2");
+    var myChart = echarts.init(dom);
+    var app = {};
+
+    var xData = function() {
+    var data = [];
+    for (var i = 2011; i < 2020; i++) {
+        for(var j = 1; j < 5; j++){
+            data.push(i + "Q" + j);
+        }
+    }
+    data.push("2020Q1");
+    return data;
+}();
+
+option = {
+    backgroundColor: "#fff",
+    animationDuration: 10000,
+    tooltip: {
+        trigger: "axis",
+        axisPointer: {
+            type: "shadow",
+            textStyle: {
+                color: "#fff"
+            }
+
+        },
+    },
+    grid: {
+        borderWidth: 0,
+        top: 110,
+        bottom: 95,
+        textStyle: {
+            color: "#fff"
+        }
+    },
+    legend: {
+        x: '38%',
+        top: '11%',
+        textStyle: {
+            color: '#90979c',
+        },
+        data: ['求职申请人数', '招聘需求人数', 'CIER指数']
+    },
+
+
+    calculable: true,
+    xAxis: [{
+        type: "category",
+        axisLabel: {
+            interval:0,
+            rotate:60,
+            textStyle: {
+                color: '#999'
+            }
+        },
+        axisLine: {
+            lineStyle: {
+                color: "rgba(204,187,225,0.5)",
+            }
+        },
+        splitLine: {
+            show: false
+        },
+        axisTick: {
+            show: false
+        },
+        data: xData,
+    }],
+
+    yAxis: [
+        {
+            type: 'value',
+            name: '单位：百万人',
+            min: 0,
+            max: 250,
+        }, 
+        {
+            type: 'value',
+            name: 'CIER指数',
+            min: 0,
+            max: 3.5,
+            interval: 0.7,
+            nameTextStyle: {
+                color: '#ccc'
+            },
+        },
+    ],
+
+    series: [
+    {
+        name: "求职申请人数",
+        yAxisIndex: 0,
+        type: "line",
+        symbolSize: 10,
+        symbol: 'circle',
+        itemStyle: {
+            color: "#6f7de3",
+        },
+        data: [36,37,38,37,48,48,49,49,46,50,52,50,52,53,54,50,53,56,65,63,59,73,78,67,79,74,72,67,75,87,82,70,72,88,88,74,78,82],
+    }, 
+    {
+        name: "招聘需求人数",
+        yAxisIndex: 0,
+        type: "line",
+        symbolSize: 10,
+        symbol: 'circle',
+        itemStyle: {
+            color: "#c257F6",
+        },
+        data: [34.2, 38.8, 41.0, 44.4, 43.2, 45.6, 54.4, 71.1, 63.0, 67.5, 91.0, 105.5, 82.2, 91.2, 108.5, 120.5, 129.3, 113.7, 127.4, 131.7, 100.9, 140.9, 173.2, 161.5, 150.9, 167.2, 175.0, 195.0, 143.3, 163.6, 161.5, 166.6, 121.0, 166.3, 142.1, 170.0, 117.3]
+    },
+    {
+        name: "CIER指数",
+        yAxisIndex: 1,
+        type: "line",
+        symbolSize: 10,
+        symbol: 'circle',
+        itemStyle: {
+            color: "#000",
+        },
+        data: [0.95,1.05,1.08,1.20,0.90,0.95,1.11,1.45,1.37,1.35,1.75,2.11,1.58,1.72,2.01,2.41,2.44,2.03,1.96,2.09,1.71,1.93,2.22,2.41,1.91,2.26,2.43,2.91,1.91,1.88,1.97,2.38,1.68,1.89,1.92,2.18,1.43]
+    }, 
+]
+}
+
+
+echarts.init(document.getElementById("charts2")).setOption(option, true);
+</script>
+
+
+</body>
+</html>

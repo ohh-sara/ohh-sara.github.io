@@ -1,208 +1,606 @@
 <!DOCTYPE html>
-<html>
+<html style="height: 100%">
 <head>
     <meta charset="utf-8">
-    <title>ECharts 实例</title>
-    <!-- 引入 echarts.js -->
-    <script type="text/javascript" src="js/echarts.min.js"></script>
-    <script type="text/javascript" src="js/echarts-gl.min.js"></script>
-    <script src="http://echarts.baidu.com/asset/map/js/world.js"></script>
-    <script type="text/javascript" src="js/world.js"></script>
-    <script type="text/javascript" src="js/worldUpdate.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@1/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@1/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/world.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/bmap.min.js"></script>
     <style>
         body{
-            background:url('img/bg12.png');
+            background:url('./images/dipositionAnalysis/3_globe.jpg');
             background-size: cover;
             height: 100%;
         }
     </style>
 </head>
-<body>
-<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
-<div id="container" style="width: 1000px;height:800px;margin:0 auto;">
-    <script type="text/javascript">
-        /*
-           图中相关城市经纬度,根据你的需求添加数据
-           关于国家的经纬度，可以用首都的经纬度或者其他城市的经纬度
-           */
-        var geoCoordMap = {
-            '中国':[116.4551,40.2539],
-            '芬兰':[24.909912,60.169095],
-            '美国':[-100.696295,33.679979],
-            '加拿大':[-102.646409,59.994255],
-            '法国':[-53.125782,3.933889],
-            '英国':[-0.126608,51.208425],
-            '德国':[13.402393,52.518569],
-            '俄罗斯':[89.116876,67.757906],
-            '澳大利亚':[135.193845,-25.304039],
-            '日本':[139.710164,35.706962],
-            '韩国':[126.979208,37.53875],
-            '新西兰':[174.885971,-40.900557],
-        };
+<body style="height: 100%; margin: 0">
+<div id="charts1" style="width: 30%;height:100%;float:left"></div>
+<script type="text/javascript">
+    var dom = document.getElementById("charts1");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = {
+        title: {
+            x:'center', //水平安放位置，默认为'left'，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
+            y: '40px', //垂直安放位置，默认为top，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
+            text: "2019中国在各国留学人数",
+            subtext: "",
+            textStyle: {
+                color: "#fff"
+            }
+        },
+        grid: {
+            left: '5%',
+            right: '5%',
+            bottom: '5%',
+            top: '10%',
+            containLabel: true
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'none'
+            },
+            formatter: function(params) {
+                return params[0].name + '<br/>' +
+                    "<span style='display:inline-block;margin-right:5px;border-radius:10px;width:9px;height:9px;background-color:rgba(36,207,233,0.9)'></span>" +
+                    params[0].seriesName + ' : ' + Number((params[0].value.toFixed(4) / 10000).toFixed(2)).toLocaleString() + ' 万元<br/>'
+            }
+        },
+        backgroundColor: 'rgba(0,0,0,0)',
+        xAxis: {
+            show: false,
+            type: 'value'
+        },
+        yAxis: [{
+            type: 'category',
+            inverse: true,
+            axisLabel: {
+                show: true,
+                textStyle: {
+                    color: '#ffffff'
+                },
+            },
+            splitLine: {
+                show: false
+            },
+            axisTick: {
+                show: false
+            },
+            axisLine: {
+                show: false
+            },
+            data: ['美国', '澳大利亚', '加拿大', '日本', '英国','韩国','新西兰','法国','德国','俄罗斯']
+        }, {
+            type: 'category',
+            inverse: true,
+            axisTick: 'none',
+            axisLine: 'none',
+            show: true,
+            axisLabel: {
+                textStyle: {
+                    color: '#ffffff',
+                    fontSize: '12'
+                },
+                formatter: function(value) {
+                    if (value >= 10000) {
+                        return (value / 10000).toLocaleString() + '万';
+                    } else {
+                        return value.toLocaleString();
+                    }
+                },
+            },
+            data: [363341, 192984, 143412, 107260, 95090,68105,40323,35043,34997,22209]
+        }],
+        series: [{
+            name: '中国留学生人数',
+            type: 'bar',
+            zlevel: 1,
+            itemStyle: {
+                normal: {
+                    barBorderRadius: 30,
+                    color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                        offset: 0,
+                        color: 'rgb(57,89,255,1)'
+                    }, {
+                        offset: 1,
+                        color: 'rgb(46,200,207,1)'
+                    }]),
+                },
+            },
+            barWidth: 20,
+            data: [363341, 192984, 143412, 107260, 95090,68105,40323,35043,34997,22209]
+        },
+            {
+                name: '背景',
+                type: 'bar',
+                barWidth: 20,
+                barGap: '-100%',
+                data: [363341, 192984, 143412, 107260, 95090,68105,40323,35043,34997,22209],
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(24,31,68,1)',
+                        barBorderRadius: 30,
+                    }
+                },
+            },
+        ]
+    };
+    ;
+    if (option && typeof option === "object") {
+        myChart.setOption(option, true);
+    }
+    echarts.init(document.getElementById("charts1")).setOption(option, true);
+</script>
 
-        /*
-            记录下起点城市和终点城市的名称，以及权重
-            数组第一位为终点城市，数组第二位为起点城市，以及该城市的权重，就是图上圆圈的大小
-         */
+<div id="container" style="width: 40%;height:100%;float:left;margin:0 auto;"></div>
+<script type="text/javascript">
+    var geoCoordMap = {
+        '中国':[116.4551,40.2539],
+        '芬兰':[24.909912,60.169095],
+        '美国':[-100.696295,33.679979],
+        '加拿大':[-102.646409,59.994255],
+        '法国':[-53.125782,3.933889],
+        '英国':[-0.126608,51.208425],
+        '德国':[13.402393,52.518569],
+        '俄罗斯':[89.116876,67.757906],
+        '澳大利亚':[135.193845,-25.304039],
+        '日本':[139.710164,35.706962],
+        '韩国':[126.979208,37.53875],
+        '新西兰':[174.885971,-40.900557],
+    };
+    var ZGData = [
+        [{name:'中国'},{name:"美国",value:363341}],
+        [{name:'中国'},{name:"加拿大",value:143412}],
+        [{name:'中国'},{name:"法国",value:35043}],
+        [{name:'中国'},{name:"澳大利亚",value:192984}],
+        [{name:'中国'},{name:"英国",value:95090}],
+        [{name:'中国'},{name:"德国",value:34997}],
+        [{name:'中国'},{name:"俄罗斯",value:22209}],
+        [{name:'中国'},{name:"韩国",value:68105}],
+        [{name:'中国'},{name:"日本",value:107260}],
+        [{name:'中国'},{name:"新西兰",value:40323}],
+    ];
 
+    var convertData = function(data) {
+        var res = [];
+        for(var i = 0; i < data.length; i++) {
+            var dataItem = data[i];
+            var fromCoord = geoCoordMap[dataItem[1].name];
+            var toCoord = geoCoordMap[dataItem[0].name];
+            if(fromCoord && toCoord) {
+                res.push([ toCoord,fromCoord])
+            }
+        }
+        console.log(res)
+        return res;
+    }
 
-        var ZGData = [
-            [{name:'中国'},{name:"美国",value:363341}],
-            [{name:'中国'},{name:"加拿大",value:143412}],
-            [{name:'中国'},{name:"法国",value:35043}],
-            [{name:'中国'},{name:"澳大利亚",value:192984}],
-            [{name:'中国'},{name:"英国",value:95090}],
-            [{name:'中国'},{name:"德国",value:34997}],
-            [{name:'中国'},{name:"俄罗斯",value:22209}],
-            [{name:'中国'},{name:"韩国",value:68105}],
-            [{name:'中国'},{name:"日本",value:107260}],
-            [{name:'中国'},{name:"新西兰",value:40323}],
-        ];
+    var series = [];// 3D飞线
+    var dser = [];  // 2D散点坐标
+    [['中国', ZGData]].forEach(function(item, i) {
+        dser.push({
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            zlevel: 3,
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            label: {
+                fontSize:24,
+                show: true,
+                position: 'right',
+                formatter: '{b}'
+            },
+            itemStyle: {
+                normal: {
+                    color: '#ffffff'
+                }
+            },
+            data: item[1].map(function(dataItem) {
+                return {
+                    name: dataItem[1].name,
+                    value: geoCoordMap[dataItem[1].name],
+                    symbolSize: dataItem[1].value / 8000
+                };
+            })
+        },{
+            type: 'effectScatter',
+            coordinateSystem: 'geo',
+            zlevel: 3,
+            rippleEffect: {
+                brushType: 'stroke'
+            },
+            label: {
+                normal: {
+                    show: true,
+                    position: 'left',
+                    fontSize:18,
+                    formatter: '{b}'
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#ead082'
+                }
+            },
+            data: [{
+                name: item[0],
+                value: geoCoordMap[item[0]],
+                symbolSize:parseInt(Math.random()*20+10),
+                label: {
+                    normal: {
+                        position: 'right'
+                    }
+                }
+            }]
+        })
+        series.push({
+            type: 'lines3D',
+            effect: {
+                show: true,
+                period: 3,//速度
+                trailLength: 1//尾部阴影
+            },
+            lineStyle: {//航线的视图效果
+                color: '#9ae5fc',
+                width: 2,
+                opacity: 0.6
+            },
+            data: convertData(item[1])// 特效的起始、终点位置，一个二维数组，相当于coords: convertData(item[1])
+        })
+    });
+    var canvas = document.createElement('canvas');
 
-        var convertData = function(data) {
-            var res = [];
-            for(var i = 0; i < data.length; i++) {
-                var dataItem = data[i];
-                var fromCoord = geoCoordMap[dataItem[1].name];
-                var toCoord = geoCoordMap[dataItem[0].name];
-                if(fromCoord && toCoord) {
-                    res.push([fromCoord, toCoord])
+    var myChart = echarts.init(canvas, null, {
+        width: 4096,
+        height: 2048
+    });
+    myChart.setOption({
+        backgroundColor: 'rgba(92,147,179,0.3)',
+        title: {
+            x:'center', //水平安放位置，默认为'left'，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
+            y: 'top', //垂直安放位置，默认为top，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
+            text: "2019中国在各国留学人数",
+            subtext: "",
+            textStyle: {
+                color: "#fff"
+            }
+        },
+        geo: {
+            type: 'map',
+            map: 'world',
+            left:0,
+            top:0,
+            right: 0,
+            bottom: 0,
+            boundingCoords: [[-180, 90], [180, -90]],
+            zoom:0,
+            roam: false,
+            itemStyle: {
+                borderColor:'#c2c2c7',
+                normal: {
+                    areaColor:'#2d4486',
+                    borderColor:'#c2c2c7'
+                },
+                emphasis: {
+                    areaColor: 'rgb(55,138,210)'
+                }
+            },
+            label:{
+                fontSize:24
+            }
+        },
+        series:dser
+    });
+    var option = {
+        backgroundColor: 'rgba(0,0,0,0)',//canvas的背景颜色
+        globe: {
+            baseTexture:myChart,
+            top: 'middle',
+            left: 'center',
+            displacementScale: 0,
+            environment:'none',
+            shading: 'color',
+            viewControl: {
+                distance:240,
+                autoRotate: true
+            }
+        },
+        series:series
+    };
+    echarts.init(document.getElementById("container")).setOption(option, true);
+</script>
+<div id="blank" style="width: 30%;height:20%;float:left"></div>
+
+<div id="charts2" style="width: 30%;height:60%;float:left"></div>
+<script type="text/javascript">
+    var dom = document.getElementById("charts2");
+    var myChart = echarts.init(dom);
+    var app = {};
+    option = {
+        backgroundColor: 'rgba(0,0,0,0)',
+        title: {
+            x:'center', //水平安放位置，默认为'left'，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
+            y: 'top', //垂直安放位置，默认为top，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
+            text: "2009-2019出国留学与回国人数",
+            subtext: "",
+            textStyle: {
+                color: "#fff"
+            }
+        },
+        tooltip: {
+            trigger: "axis"
+        },
+        legend: [{
+            data: ["出国留学总人数", "留学回国总人数"],
+            x:'100px', //水平安放位置，默认为'left'，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
+            y: '30px', //垂直安放位置，默认为top，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
+            icon: "circle",
+            textStyle: {
+                color: "#fff"
+            }
+        },
+    {
+        data: [ "出国增长率","回国增长率"],
+            x:'100px', //水平安放位置，默认为'left'，可选为：'center' | 'left' | 'right' | {number}（x坐标，单位px）
+            y: '50px', //垂直安放位置，默认为top，可选为：'top' | 'bottom' | 'center' | {number}（y坐标，单位px）
+            icon: "circle",
+            textStyle: {
+            color: "#fff"
+        }
+    }],
+        grid: {
+            left: "2%",
+            right: "2%",
+            bottom: "0%",
+            containLabel: true
+        },
+        xAxis: [{
+            type: "category",
+            data: [
+                "2009",
+                "2010",
+                "2011",
+                "2012",
+                "2013",
+                "2014",
+                "2015",
+                "2016",
+                "2017",
+                "2018",
+                "2019",
+                "2020"
+            ],
+            axisPointer: {
+                type: "shadow"
+            },
+            axisLabel: {
+                textStyle: {
+                    color: "#fff"
+                },
+                margin: 18
+            },
+            splitLine: {
+                show: false
+            },
+            axisLine: {
+                //  改变x轴颜色
+                lineStyle: {
+                    color: "#fff"
+                }
+            },
+            axisTick: {
+                //坐标轴刻度相关设置。
+                show: false
+            }
+        }],
+        dataZoom: [
+            //滑动条
+            {
+                xAxisIndex: 0, //这里是从X轴的0刻度开始
+                show: true, //是否显示滑动条，不影响使用
+                type: "slider", // 这个 dataZoom 组件是 slider 型 dataZoom 组件
+                startValue: 0, // 从头开始。
+                endValue: 6, // 一次性展示6个
+                height: 8, //组件高度
+                bottom: 18,
+                borderColor: "rgba(43,48,67,.8)",
+                fillerColor: "#19D4AE",
+                showDataShadow: false, //是否显示数据阴影 默认auto
+                backgroundColor: "#f4f6f8",
+                showDetail: false, //即拖拽时候是否显示详细数值信息 默认true
+                realtime: false, //是否实时更新
+                filterMode: "filter"
+            }
+        ],
+        yAxis: [{
+            type: "value",
+            nameTextStyle: {
+                color: "#fff"
+            },
+            name: "人数(万人)",
+            // min: 0,
+            // max: 250,
+            interval: 50,
+            axisLabel: {
+                formatter: "{value}",
+                textStyle: {
+                    color: "#fff"
+                }
+            },
+            splitLine: {
+                show: false
+            },
+            axisLine: {
+                //  改变x轴颜色
+                lineStyle: {
+                    color: "#fff"
+                }
+            },
+            axisTick: {
+                //坐标轴刻度相关设置。
+                show: false
+            }
+        },
+            {
+                type: "value",
+                nameTextStyle: {
+                    color: "#fff"
+                },
+                name: "增长率(%)",
+                // min: 0,
+                // max: 25,
+                interval: 5,
+                axisLabel: {
+                    formatter: "{value}",
+                    textStyle: {
+                        color: "#fff"
+                    }
+                },
+                splitLine: {
+                    show: false
+                },
+                axisLine: {
+                    //  改变x轴颜色
+                    lineStyle: {
+                        color: "#fff"
+                    }
+                },
+                axisTick: {
+                    //坐标轴刻度相关设置。
+                    show: false
                 }
             }
-            console.log(res)
-            return res;
+        ],
+        series: [{
+            name: "出国留学总人数",
+            type: "bar",
+            itemStyle: {
+                normal: {
+                    color: "#96edc1"
+                    // barBorderRadius: [10, 10, 0, 0]
+                }
+            },
+            barMaxWidth: 20,
+            data: [
+                22.93,
+                28.47,
+                33.96,
+                39.96,
+                41.39,
+                45.98,
+                52.37,
+                54.45,
+                60.84,
+                66.21,
+                70.35,
+                70.35
+            ]
+        },
+            {
+                name: "留学回国总人数",
+                itemStyle: {
+                    normal: {
+                        color: "#b6c2ff"
+                        // barBorderRadius: [10, 10, 0, 0]
+                    }
+                },
+                barMaxWidth: 20,
+                type: "bar",
+                data: [
+                    10.83,
+                    13.48,
+                    18.62,
+                    27.29,
+                    35.35,
+                    36.48,
+                    40.91,
+                    43.25,
+                    48.09,
+                    41.94,
+                    58.03,
+                    58.03
+                ]
+            },
+            {
+                name: "出国增长率",
+                type: "line",
+                smooth: true,
+                yAxisIndex: 1,
+                itemStyle: {
+                    normal: {
+                        color: "#FFE180"
+                    }
+                },
+                data: [
+                    2.0,
+                    2.2,
+                    3.3,
+                    4.5,
+                    6.3,
+                    10.2,
+                    20.3,
+                    23.4,
+                    23.0,
+                    16.5,
+                    12.0,
+                    6.2
+                ]
+            },
+            {
+                name: "回国增长率",
+                type: "line",
+                smooth: true,
+                yAxisIndex: 1,
+                itemStyle: {
+                    normal: {
+                        color: "#FFE180"
+                    }
+                },
+                data: [
+                    2.0,
+                    2.2,
+                    3.3,
+                    4.5,
+                    6.3,
+                    10.2,
+                    20.3,
+                    23.4,
+                    23.0,
+                    16.5,
+                    12.0,
+                    6.2
+                ]
+            }
+        ]
+    };
+
+
+    setInterval(function() {
+        // 每次向后滚动一个，最后一个从头开始。
+        if (option.dataZoom[0].endValue == 12) {
+            option.dataZoom[0].endValue = 8;
+            option.dataZoom[0].startValue = 0;
+        } else {
+            option.dataZoom[0].endValue = option.dataZoom[0].endValue + 1;
+            option.dataZoom[0].startValue = option.dataZoom[0].startValue + 1;
         }
+        myChart.setOption(option);
+    }, 2000);
+    window.addEventListener("resize", () => {
+        // 自动渲染echarts
+        myChart.resize();
+    });
 
-        var series = [];// 3D飞线
-        var dser = [];  // 2D散点坐标
-        [['中国', ZGData]].forEach(function(item, i) {
-            dser.push({
-                type: 'effectScatter',
-                coordinateSystem: 'geo',
-                zlevel: 3,
-                rippleEffect: {
-                    brushType: 'stroke'
-                },
-                label: {
-                    fontSize:24,
-                    show: true,
-                    position: 'right',
-                    formatter: '{b}'
-                },
-                itemStyle: {
-                    normal: {
-                        color: '#f5f802'
-                    }
-                },
-                data: item[1].map(function(dataItem) {
-                    return {
-                        name: dataItem[1].name,
-                        value: geoCoordMap[dataItem[1].name],
-                        symbolSize: dataItem[1].value / 10000
-                    };
-                })
-            },{
-                type: 'effectScatter',
-                coordinateSystem: 'geo',
-                zlevel: 3,
-                rippleEffect: {
-                    brushType: 'stroke'
-                },
-                label: {
-                    normal: {
-                        show: true,
-                        position: 'left',
-                        fontSize:18,
-                        formatter: '{b}'
-                    }
-                },
-                itemStyle: {
-                    normal: {
-                        color: '#ff0000'
-                    }
-                },
-                data: [{
-                    name: item[0],
-                    value: geoCoordMap[item[0]],
-                    symbolSize:parseInt(Math.random()*20+10),
-                    label: {
-                        normal: {
-                            position: 'right'
-                        }
-                    }
-                }]
-            })
-            series.push({
-                type: 'lines3D',
-                effect: {
-                    show: true,
-                    period: 3,//速度
-                    trailLength: 0.1//尾部阴影
-                },
-                lineStyle: {//航线的视图效果
-                    color: '#9ae5fc',
-                    width: 1,
-                    opacity: 0.6
-                },
-                data: convertData(item[1])// 特效的起始、终点位置，一个二维数组，相当于coords: convertData(item[1])
-            })
-        });
-        var canvas = document.createElement('canvas');
-
-        var myChart = echarts.init(canvas, null, {
-            width: 4096,
-            height: 2048
-        });
-        myChart.setOption({
-            backgroundColor: 'rgba(3,28,72,0.3)',
-            title: {
-                show:true
-            },
-            geo: {
-                type: 'map',
-                map: 'world',
-                left:0,
-                top:0,
-                right: 0,
-                bottom: 0,
-                boundingCoords: [[-180, 90], [180, -90]],
-                zoom:0,
-                roam: false,
-                itemStyle: {
-                    borderColor:'#000d2d',
-                    normal: {
-                        areaColor: '#2455ad',
-                        borderColor:'#000c2d'
-                    },
-                    emphasis: {
-                        areaColor: '#357cf8'
-                    }
-                },
-                label:{
-                    fontSize:24
-                }
-            },
-            series:dser
-        });
-        var option = {
-            backgroundColor: 'rgba(0,0,0,0)',//canvas的背景颜色
-            globe: {
-                baseTexture:myChart,
-                top: 'middle',
-                left: 'center',
-                displacementScale: 0,
-                environment:'none',
-                shading: 'color',
-                viewControl: {
-                    distance:240,
-                    autoRotate: true
-                }
-            },
-            series:series
-        };
-        echarts.init(document.getElementById("container")).setOption(option, true);
-    </script>
-</div>
+    echarts.init(document.getElementById("charts2")).setOption(option, true);
+</script>
 
 </body>
 </html>

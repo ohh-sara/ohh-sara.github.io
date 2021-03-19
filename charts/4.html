@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@1/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@1/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/world.js"></script>
+    <script type="text/javascript" src="https://oisanjavax.github.io/echarts-wordcloud/dist/echarts-wordcloud.min.js"></script>
+    <style>
+        body{
+            background:url('');
+            background-size: cover;
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="charts4" style="width: 100%;height:100%;text-align: center"></div>
+<script type="text/javascript">
+    var dom = document.getElementById("charts4");
+    var myChart = echarts.init(dom);
+    var app = {};
+
+    option = {
+        title:{
+            text: '不同城市等级CIER指数',
+        },
+        legend: {},
+        tooltip: {},
+        dataset: {
+            source: [
+                ['规模', '2019年第一季度', '2019年第四季度', '2020年第一季度'],
+                ['一线城市', 0.51, 0.91, 0.51],
+                ['新一线城市', 0.75, 1.52, 0.77],
+                ['二线城市', 0.97, 1.96, 0.91],
+                ['三线城市', 1.00, 2.03, 1.08]
+            ]
+        },
+        xAxis: {type: 'category'},
+        yAxis: {},
+        series: [
+            {type: 'bar'},
+            {type: 'bar'},
+            {type: 'bar'}
+        ]
+    };
+
+
+
+
+
+    echarts.init(document.getElementById("charts4")).setOption(option, true);
+</script>
+
+
+</body>
+</html>

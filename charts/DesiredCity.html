@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@1/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@1/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/world.js"></script>
+    <script type="text/javascript" src="https://oisanjavax.github.io/echarts-wordcloud/dist/echarts-wordcloud.min.js"></script>
+    <style>
+        body{
+            background:url('');
+            background-size: cover;
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="DesiredCity" style="width: 100%;height:100%;text-align: center"></div>
+<script type="text/javascript">
+    var dom = document.getElementById("DesiredCity");
+    var myChart = echarts.init(dom);
+    var app = {};
+
+    var posList = [
+        'left', 'right', 'top', 'bottom',
+        'inside',
+        'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
+        'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
+    ];
+
+    app.configParameters = {
+        rotate: {
+            min: -90,
+            max: 90
+        },
+        align: {
+            options: {
+                left: 'left',
+                center: 'center',
+                right: 'right'
+            }
+        },
+        verticalAlign: {
+            options: {
+                top: 'top',
+                middle: 'middle',
+                bottom: 'bottom'
+            }
+        },
+        position: {
+            options: posList.reduce(function (map, pos) {
+                map[pos] = pos;
+                return map;
+            }, {})
+        },
+        distance: {
+            min: 0,
+            max: 100
+        }
+    };
+
+    app.config = {
+        rotate: 90,
+        align: 'left',
+        verticalAlign: 'middle',
+        position: 'insideBottom',
+        distance: 15,
+        onChange: function () {
+            var labelOption = {
+                normal: {
+                    rotate: app.config.rotate,
+                    align: app.config.align,
+                    verticalAlign: app.config.verticalAlign,
+                    position: app.config.position,
+                    distance: app.config.distance
+                }
+            };
+            myChart.setOption({
+                series: [{
+                    label: labelOption
+                }, {
+                    label: labelOption
+                }, {
+                    label: labelOption
+                }, {
+                    label: labelOption
+                }]
+            });
+        }
+    };
+
+
+    option = {
+        tooltip: {
+            trigger: 'axis',
+            axisPointer: {
+                type: 'shadow'
+            }
+        },
+        legend: {
+            data: ['院校所属地','实际就业地','期望就业地']
+        },
+        toolbox: {
+            show: true,
+            orient: 'vertical',
+            left: 'right',
+            top: 'center',
+            feature: {
+                mark: {show: true},
+                dataView: {show: true, readOnly: false},
+                magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                restore: {show: true},
+                saveAsImage: {show: true}
+            }
+        },
+        grid: {
+            right: 0,
+            left: 50
+        },
+        xAxis: [
+            {
+                type: 'category',
+                axisTick: {show: false},
+                data: ['一线城市', '新一线城市', '二线城市', '三线及以下城市']
+            }
+        ],
+        yAxis: [
+            {
+                type: 'value'
+            }
+        ],
+        color: ['#7394aa','#2bd2d2', '#1072b3'],
+        series: [
+            {
+                name: '院校所属地',
+                type: 'pictorialBar',
+                barGap: '-30%',
+                symbol: 'path://M0,10 L10,10 L5,0 L0,10 z',
+                barWidth : 100,
+                label: {
+                    show:true,
+                    position:'top',
+                    formatter:'{c}%',
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [10.48, 24.53, 26.93,38.06]
+            },
+            {
+                name: '实际就业地',
+                type: 'pictorialBar',
+                barGap: '-30%',
+                symbol: 'path://M0,10 L10,10 L5,0 L0,10 z',
+                barWidth : 100,
+                label: {
+                    show:true,
+                    position:'top',
+                    formatter:'{c}%',
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [32.14, 35.17, 17.82, 14.87]
+            },
+            {
+                name: '期望就业地',
+                type: 'pictorialBar',
+                barGap: '-30%',
+                symbol: 'path://M0,10 L10,10 L5,0 L0,10 z',
+                barWidth : 100,
+                label: {
+                    show:true,
+                    position:'top',
+                    formatter:'{c}%',
+                },
+                emphasis: {
+                    focus: 'series'
+                },
+                data: [30.63, 44.18,20.14,5.05]
+            }
+        ]
+    };
+
+    echarts.init(document.getElementById("DesiredCity")).setOption(option, true);
+</script>
+
+
+</body>
+</html>

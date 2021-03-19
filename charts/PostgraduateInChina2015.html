@@ -1,0 +1,73 @@
+<div class="selection">
+    <p>请选择你想要查看的年份</p>
+    <select id='year' onchange="checkField(this.value)" style="font-size: 18px">
+        <option value="2019">2019</option>
+        <option value="2018">2018</option>
+        <option value="2017">2017</option>
+        <option value="2016">2016</option>
+        <option value="2015" selected="selected">2015</option>
+    </select>
+</div>
+
+<style>
+    .selection p{
+        float: left;
+        diplay: inline-block;
+        position: relative;
+        top: 0;
+    }
+    .selection select{
+        float: left;
+        diplay: inline-block;
+        position: relative;
+        top: 15px;
+        left: 10px;
+    }
+</style>
+<!--2015年-->
+<div class='tableauPlaceholder' id='viz1615037464383' style='position: relative'>
+    <noscript>
+        <a href='#'><img alt=' ' src='https://public.tableau.com/static/images/20/2015_16150373972850/1/1_rss.png' style='border: none' /></a>
+    </noscript>
+    <object class='tableauViz'  style='display:none;'>
+        <param name='host_url' value='https://public.tableau.com/' />
+        <param name='path' value='views/2015_16150373972850/1?:language=zh-Hans;:embed=y;:display_count=y;publish=yes' />
+        <param name='showShareOptions' value='false' />
+        <param name='toolbar' value='no' />
+    </object>
+</div>
+<script type='text/javascript'>
+    var divElement = document.getElementById('viz1615037464383');
+    var vizElement = divElement.getElementsByTagName('object')[0];
+    vizElement.style.width='100%';
+    vizElement.style.height=(divElement.offsetWidth*0.75)+'px';
+    var scriptElement = document.createElement('script');
+    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+    vizElement.parentNode.insertBefore(scriptElement, vizElement);
+</script>
+
+<script>
+    function checkField(val)
+    {
+        alert("输入值已更改。您选择的年份是：" + val);
+        if(val==2019){
+            window.location.href="PostgraduateInChina2019.html";
+
+        }
+        else if(val==2016){
+            window.location.href="PostgraduateInChina2016.html";
+        }
+        else if(val==2017){
+            window.location.href="PostgraduateInChina2017.html";
+        }
+        else if(val==2018){
+            window.location.href="PostgraduateInChina2018.html";
+        }
+    }
+    if(window.name != "noReload"){
+        window.name = "noReload";
+        location.reload();
+    } else {
+        window.name = "";
+    }
+</script>

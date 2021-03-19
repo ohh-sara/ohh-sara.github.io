@@ -10,9 +10,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
+    <!-- Libraries CSS Files -->
+    <link href="plugins/slick/animate.min.css" rel="stylesheet">
+
     <!-- Slick Carousel -->
     <link rel="stylesheet" href="plugins/slick/slick.css">
     <link rel="stylesheet" href="plugins/slick/slick-theme.css">
+
     <!-- FancyBox -->
     <link rel="stylesheet" href="plugins/fancybox/jquery.fancybox.min.css">
 
@@ -22,6 +26,16 @@
     <!--Favicon-->
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+
+    <!--dependent file-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@1/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@1/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/world.js"></script>
+    <script type="text/javascript" src="https://oisanjavax.github.io/echarts-wordcloud/dist/echarts-wordcloud.min.js"></script>
+
 
 </head>
 
@@ -162,110 +176,699 @@
                                 <li role="presentation">
                                     <a href="#object4" data-toggle="tab">行业薪资</a>
                                 </li>
-                                <li role="presentation">
-                                    <a href="#object5" data-toggle="tab">其它情况</a>
-                                </li>
+
                             </ul>
                         </div>
                         <!--Start single tab content-->
                         <div class="tab-content">
                             <div class="block-box tab-pane fade in active row" id="object1">
-                                <div class="col-md-6">
-                                    <img class="img-responsive" src="images/current/current_1.jpg" alt="service-image">
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="contents">
-                                        <div class="section-title">
-                                            <h3 herf="http://www.yanxian.org/html/kydt/8813.html">就业去向</h3>
-                                        </div>
-                                        <div class="text">
-                                        </div>
-                                        <ul class="content-list">
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                        </ul>
-                                        <a href="#" class="btn btn-style-one">正在绘制中</a>
-                                    </div>
-                                </div>
+                                <div id="jobOrientation" style="width: 80%;height:500px;margin: 0 auto"></div>
+                                <script type="text/javascript">
+                                    var dom = document.getElementById("jobOrientation");
+                                    var myChart = echarts.init(dom);
+                                    var app = {};
+                                    let datalist = [
+                                        {
+                                            name: "研究生"
+                                        },
+                                        {
+                                            name: "本科生"
+                                        },
+                                        {
+                                            name: "专科生"
+                                        },
+                                        {
+                                            name: "单位就业"
+                                        },
+                                        {
+                                            name:"自由职业"
+                                        },
+                                        {
+                                            name: "未就业"
+                                        },
+                                        {
+                                            name: "创业或其它"
+                                        },
+                                        {
+                                            name: "国内升学"
+                                        },
+                                        {
+                                            name: "出境深造"
+                                        },
+                                    ];
+                                    let linksData = [
+                                        {
+                                            source: "研究生",
+                                            target: "单位就业",
+                                            value: 89.60
+                                        },
+                                        {
+                                            source: "研究生",
+                                            target: "自由职业",
+                                            value: 3.30
+                                        },
+                                        {
+                                            source: "研究生",
+                                            target: "未就业",
+                                            value: 2.70
+                                        },
+                                        {
+                                            source: "研究生",
+                                            target: "创业或其它",
+                                            value: 2.00
+                                        },
+                                        {
+                                            source: "研究生",
+                                            target: "国内升学",
+                                            value: 2.0
+                                        },
+                                        {
+                                            source: "研究生",
+                                            target: "出境深造",
+                                            value: 0.40
+                                        },
+
+                                        {
+                                            source: "本科生",
+                                            target: "单位就业",
+                                            value: 75.30
+                                        },
+                                        {
+                                            source: "本科生",
+                                            target: "自由职业",
+                                            value: 7.10
+                                        },
+                                        {
+                                            source: "本科生",
+                                            target: "未就业",
+                                            value: 6.30
+                                        },
+                                        {
+                                            source: "本科生",
+                                            target: "创业或其它",
+                                            value: 2.50
+                                        },
+                                        {
+                                            source: "本科生",
+                                            target: "国内升学",
+                                            value: 5.80
+                                        },
+                                        {
+                                            source: "本科生",
+                                            target: "出境深造",
+                                            value: 3.00
+                                        },
+
+
+                                        {
+                                            source: "专科生",
+                                            target: "单位就业",
+                                            value: 70.80
+                                        },
+                                        {
+                                            source: "专科生",
+                                            target: "自由职业",
+                                            value: 12.60
+                                        },
+                                        {
+                                            source: "专科生",
+                                            target: "未就业",
+                                            value: 7.20
+                                        },
+                                        {
+                                            source: "专科生",
+                                            target: "创业或其它",
+                                            value: 5.10
+                                        },
+                                        {
+                                            source: "专科生",
+                                            target: "国内升学",
+                                            value: 4.0
+                                        },
+                                        {
+                                            source: "专科生",
+                                            target: "出境深造",
+                                            value: 0.30
+                                        },
+
+
+
+
+
+
+                                    ];
+                                    let Color = [
+                                        "#8e3131",
+                                        "#e0cd6b",
+                                        "#4db9dc",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#ffffff",
+                                        "#ffffff",
+                                        "#ffffff",
+                                        "#ffffff",
+                                        "#ffffff",
+                                        "#ffffff",
+
+                                    ];  let Color1 = [
+                                        "#8e3131",
+                                        "#e0cd6b",
+                                        "#4db9dc",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#b8b7b7",
+                                        "#ffffff",
+                                        "#ffffff",
+                                        "#ffffff",
+                                        "#ffffff",
+                                        "#ffffff",
+                                        "#ffffff",
+
+                                    ];
+                                    let sourceLabel = [
+                                        "right",
+                                        "right",
+                                        "right",
+                                        "left",
+                                        "left",
+                                        "left",
+                                        "left",
+                                        "left",
+                                        "left",
+                                        "left",
+                                        "left",
+                                        "left",
+                                        "left",
+                                        "left",
+                                        "left",
+                                        "left"
+                                    ];
+                                    let itemStyleColor = [];
+                                    let labelSource = [];
+                                    for (let i = 0; i < datalist.length; i++) {
+                                        datalist[i].label = {
+                                            normal: {
+                                                position: sourceLabel[i]
+                                            }
+                                        };
+                                        labelSource.push(sourceLabel[i]);
+                                    }
+                                    for (let d = 0; d < datalist.length; d++) {
+                                        datalist[d].itemStyle = {
+                                            normal: {
+                                                // color: Color[d]
+                                                color: {
+                                                    type: "linear",
+                                                    x: 0,
+                                                    y: 1,
+                                                    x2: 0,
+                                                    y2: 0,
+                                                    colorStops: [
+                                                        {
+                                                            offset: 1,
+                                                            color: Color[d], // 0% 处的颜色
+                                                        },
+                                                        {
+                                                            offset: 0,
+                                                            color: Color1[d], // 100% 处的颜色
+                                                        },
+                                                    ],
+                                                    global: false, // 缺省为 false
+                                                },
+                                            }
+                                        };
+                                        itemStyleColor.push(datalist[d]);
+                                    }
+                                    option = {
+                                        backgroundColor: "#ffffff",
+                                        tooltip: {
+                                            trigger: "item",
+                                            triggerOn: "mousemove",
+                                            formatter: function(params) {
+                                                if (params.name == "公共平台") {
+                                                    return " 公共平台 "
+                                                } else {
+                                                    let value = params.data.value;
+                                                    if (!value && value !== 0) return 0;
+                                                    let str = value.toString();
+                                                    let reg = str.indexOf(".") > -1 ? /(\d)(?=(\d{3})+\.)/g : /(\d)(?=(?:\d{3})+$)/g;
+                                                    if (params.data.source == "公共平台") {
+                                                        return params.data.target + " : " + str.replace(reg, "$1,")+'%';
+                                                    } else {
+                                                        return params.data.source + " : " + str.replace(reg, "$1,")+'%';
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        grid: {
+                                            right: 0,
+                                            left: 50
+                                        },
+                                        series: [{
+                                            type: "sankey",
+                                            layout: "none",
+                                            top: "4%",
+                                            bottom: "12%",
+                                            left: "20",
+                                            right: "20",
+                                            nodeGap: 15,
+                                            nodeWidth: 25,
+                                            focusNodeAdjacency: "allEdges",
+                                            data: itemStyleColor,
+                                            links: linksData,
+                                            label: {
+                                                normal: {
+                                                    color: "#000000",
+                                                    fontSize: 14,
+                                                    formatter: function(params) {
+                                                        if (params.data.name == '公共平台') {
+                                                            let strs = params.data.name.split(''); //字符串数组
+                                                            let str = ''
+                                                            for (let i = 0, s; s = strs[i++];) { //遍历字符串数组
+                                                                str += s;
+                                                                if (!(i % 1)) str += '\n'; //按需要求余
+                                                            }
+                                                            return "{white|" + str + "}"
+                                                        } else {
+                                                            return params.data.name
+                                                        }
+                                                    },
+                                                    rich: {
+                                                        white: {
+                                                            fontSize: 16,
+                                                            lineHeight: 30,
+                                                            padding: [0, 0, 0, -26]
+                                                        }
+                                                    }
+                                                }
+                                            },
+                                            lineStyle: {
+                                                normal: {
+                                                    opacity: 0.4,
+                                                    color: "source",
+                                                    curveness: 0.5
+                                                }
+                                            },
+                                            itemStyle: {
+                                                normal: {
+                                                    borderWidth: 1,
+                                                    borderColor: "transparent"
+                                                }
+                                            }
+                                        }]
+                                    };
+
+
+                                    echarts.init(document.getElementById("jobOrientation")).setOption(option, true);
+                                </script>
                             </div>
                             <!--End single tab content-->
                             <!--Start single tab content-->
-                            <div class="block-box tab-pane fade in" id="object2">
-                                <div class="col-md-6">
-                                    <img class="img-responsive" src="images/current/current_1.jpg" alt="service-image">
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="contents">
-                                        <div class="section-title">
-                                            <h3 herf="http://www.yanxian.org/html/kydt/8813.html">就业去向</h3>
-                                        </div>
-                                        <div class="text">
-                                        </div>
-                                        <ul class="content-list">
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                        </ul>
-                                        <a href="#" class="btn btn-style-one">正在绘制中</a>
-                                    </div>
-                                </div>
+                            <div class="block-box tab-pane fade in active row" id="object2">
+                                <div id="DesiredCity" style="width: 80%;height:500px;margin: 0 auto"></div>
+                                <script type="text/javascript">
+                                    var dom = document.getElementById("DesiredCity");
+                                    var myChart = echarts.init(dom);
+                                    var app = {};
+
+                                    var posList = [
+                                        'left', 'right', 'top', 'bottom',
+                                        'inside',
+                                        'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
+                                        'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
+                                    ];
+
+                                    app.configParameters = {
+                                        rotate: {
+                                            min: -90,
+                                            max: 90
+                                        },
+                                        align: {
+                                            options: {
+                                                left: 'left',
+                                                center: 'center',
+                                                right: 'right'
+                                            }
+                                        },
+                                        verticalAlign: {
+                                            options: {
+                                                top: 'top',
+                                                middle: 'middle',
+                                                bottom: 'bottom'
+                                            }
+                                        },
+                                        position: {
+                                            options: posList.reduce(function (map, pos) {
+                                                map[pos] = pos;
+                                                return map;
+                                            }, {})
+                                        },
+                                        distance: {
+                                            min: 0,
+                                            max: 100
+                                        }
+                                    };
+
+                                    app.config = {
+                                        rotate: 90,
+                                        align: 'left',
+                                        verticalAlign: 'middle',
+                                        position: 'insideBottom',
+                                        distance: 15,
+                                        onChange: function () {
+                                            var labelOption = {
+                                                normal: {
+                                                    rotate: app.config.rotate,
+                                                    align: app.config.align,
+                                                    verticalAlign: app.config.verticalAlign,
+                                                    position: app.config.position,
+                                                    distance: app.config.distance
+                                                }
+                                            };
+                                            myChart.setOption({
+                                                series: [{
+                                                    label: labelOption
+                                                }, {
+                                                    label: labelOption
+                                                }, {
+                                                    label: labelOption
+                                                }, {
+                                                    label: labelOption
+                                                }]
+                                            });
+                                        }
+                                    };
+
+
+                                    option = {
+                                        tooltip: {
+                                            trigger: 'axis',
+                                            axisPointer: {
+                                                type: 'shadow'
+                                            }
+                                        },
+                                        legend: {
+                                            data: ['院校所属地','实际就业地','期望就业地']
+                                        },
+                                        toolbox: {
+                                            show: true,
+                                            orient: 'vertical',
+                                            left: 'right',
+                                            top: 'center',
+                                            feature: {
+                                                mark: {show: true},
+                                                dataView: {show: true, readOnly: false},
+                                                magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                                                restore: {show: true},
+                                                saveAsImage: {show: true}
+                                            }
+                                        },
+                                        grid: {
+                                            right: 0,
+                                            left: 50
+                                        },
+                                        xAxis: [
+                                            {
+                                                type: 'category',
+                                                axisTick: {show: false},
+                                                data: ['一线城市', '新一线城市', '二线城市', '三线及以下城市']
+                                            }
+                                        ],
+                                        yAxis: [
+                                            {
+                                                type: 'value'
+                                            }
+                                        ],
+                                        color: ['#7394aa','#2bd2d2', '#1072b3'],
+                                        series: [
+                                            {
+                                                name: '院校所属地',
+                                                type: 'pictorialBar',
+                                                barGap: '-30%',
+                                                symbol: 'path://M0,10 L10,10 L5,0 L0,10 z',
+                                                barWidth : 60,
+                                                label: {
+                                                    show:true,
+                                                    position:'top',
+                                                    formatter:'{c}%',
+                                                },
+                                                emphasis: {
+                                                    focus: 'series'
+                                                },
+                                                data: [10.48, 24.53, 26.93,38.06]
+                                            },
+                                            {
+                                                name: '实际就业地',
+                                                type: 'pictorialBar',
+                                                barGap: '-30%',
+                                                symbol: 'path://M0,10 L10,10 L5,0 L0,10 z',
+                                                barWidth : 60,
+                                                label: {
+                                                    show:true,
+                                                    position:'top',
+                                                    formatter:'{c}%',
+                                                },
+                                                emphasis: {
+                                                    focus: 'series'
+                                                },
+                                                data: [32.14, 35.17, 17.82, 14.87]
+                                            },
+                                            {
+                                                name: '期望就业地',
+                                                type: 'pictorialBar',
+                                                barGap: '-30%',
+                                                symbol: 'path://M0,10 L10,10 L5,0 L0,10 z',
+                                                barWidth : 60,
+                                                label: {
+                                                    show:true,
+                                                    position:'top',
+                                                    formatter:'{c}%',
+                                                },
+                                                emphasis: {
+                                                    focus: 'series'
+                                                },
+                                                data: [30.63, 44.18,20.14,5.05]
+                                            }
+                                        ]
+                                    };
+
+                                    echarts.init(document.getElementById("DesiredCity")).setOption(option, true);
+                                </script>
                             </div>
                             <!--End single tab content-->
                             <!--Start single tab content-->
-                            <div class="block-box tab-pane fade in" id="object3">
-                                <div class="col-md-6">
-                                    <img class="img-responsive" src="images/current/current_1.jpg" alt="service-image">
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="contents">
-                                        <div class="section-title">
-                                            <h3 herf="http://www.yanxian.org/html/kydt/8813.html">就业去向</h3>
-                                        </div>
-                                        <div class="text">
-                                        </div>
-                                        <ul class="content-list">
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                        </ul>
-                                        <a href="#" class="btn btn-style-one">正在绘制中</a>
-                                    </div>
-                                </div>
+                            <div class="block-box tab-pane fade in active row" id="object3">
+                                <div id="situationOfMajor" style="width: 80%;height:500px;margin: 0 auto;"></div>
+                                <script type="text/javascript">
+                                    var dom = document.getElementById("situationOfMajor");
+                                    var myChart = echarts.init(dom);
+                                    var app = {};
+
+                                    option = {
+                                        color:['#12e78c','#c23531','#2f4554', '#61a0a8'],
+                                        title: {
+                                            text: '红绿牌专业',
+                                            left: 'left',
+                                            top: 'center'
+                                        },
+                                        tooltip: {
+                                            trigger: 'item',
+                                            formatter: '{a} <br/>{b} : {c}%'
+                                        },
+                                        toolbox: {
+                                            orient: 'vertical',
+                                            top: 'center',
+                                            feature: {
+                                                dataView: {readOnly: false},
+                                                restore: {},
+                                                saveAsImage: {}
+                                            }
+                                        },
+                                        legend: {
+                                            orient: 'vertical',
+                                            left: 'left',
+                                            data: ['通信工程', '软件工程', '网络工程', '信息安全', '数字媒体与艺术','绘画','化学','历史','法学','音乐表演']
+                                        },
+                                        grid: {
+                                            right: 0,
+                                            left: 50
+                                        },
+
+                                        series: [
+                                            {
+                                                name: '漏斗图',
+                                                type: 'funnel',
+                                                color:['#20b2aa','#33ff99','#2e8b57','#7fff00','#006400'],
+                                                width: '40%',
+                                                height: '45%',
+                                                left: '55%',
+                                                top: '5%',
+                                                label: {
+                                                    position: 'left'
+                                                },
+                                                data: [
+                                                    {value: 10, name: '数字媒体与艺术'},
+                                                    {value: 30, name: '信息安全'},
+                                                    {value: 60, name: '网络工程'},
+                                                    {value: 80, name: '软件工程'},
+                                                    {value: 100, name: '通信工程'}
+                                                ]
+                                            },
+                                            {
+                                                name: '金字塔',
+                                                type: 'funnel',
+                                                color:['#800000','#a52a2a','#b22222','#dc143c','#ff0000'],
+                                                width: '40%',
+                                                height: '45%',
+                                                left: '55%',
+                                                top: '50%',
+                                                sort: 'ascending',
+                                                label: {
+                                                    position: 'left'
+                                                },
+                                                data: [
+                                                    {value: 30, name: '绘画'},
+                                                    {value: 50, name: '化学'},
+                                                    {value: 60, name: '历史学'},
+                                                    {value: 70, name: '法学'},
+                                                    {value: 100, name: '音乐表演'}
+                                                ]
+                                            }
+                                        ]
+                                    };
+
+                                    option && myChart.setOption(option);
+
+                                    echarts.init(document.getElementById("situationOfMajor")).setOption(option, true);
+                                </script>
                             </div>
                             <!--End single tab content-->
                             <!--Start single tab content-->
-                            <div class="block-box tab-pane fade in" id="object4">
-                                <div class="col-md-6">
-                                    <img class="img-responsive" src="images/current/current_1.jpg" alt="service-image">
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="contents">
-                                        <div class="section-title">
-                                            <h3 herf="http://www.yanxian.org/html/kydt/8813.html">就业去向</h3>
-                                        </div>
-                                        <div class="text">
-                                        </div>
-                                        <ul class="content-list">
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                        </ul>
-                                        <a href="#" class="btn btn-style-one">正在绘制中</a>
-                                    </div>
-                                </div>
+                            <div class="block-box tab-pane fade in active row" id="object4">
+                                <div id="salaryByMajor" style="width: 80%;height:500px;margin: 0 auto"></div>
+                                <script type="text/javascript">
+                                    var dom = document.getElementById("salaryByMajor");
+                                    var myChart = echarts.init(dom);
+                                    var app = {};
+
+                                    var data = [
+                                        [[9,5109,459810000,'高职-铁道运输类：5109元/月','高职'],[12,4883,585960000,'高职-计算机类：4883元/月','高职'],[3,4673,142890000,'高职-水上运输类：4763元/月','高职'],[14,4762,666680000,'高职-机电设备类：4762元/月','高职'],[6,4707,282420000,'高职-机械设计制造类：4707元/月','高职'],[2,4673,93460000,'高职-化工技术类：4673元/月','高职'],[10,4657,465700000,'高职-电子信息类：4657元/月','高职'],[16,4613,738080000,'高职-市场营销类：4613元/月','高职'],[5,4584,229200000,'高职-表演艺术类：4584元/月','高职'],[8,4553,364240000,'高职-电力技术类：4553元/月']],
+                                        [[15,6858,1028700000,'本科-计算机类:6858元/月','本科'],[10,6145,614500000,'本科-电子信息类：6145元/月','本科'],[18,5899,1061820000,'本科-自动化类：5899元/月','本科'],[9,5856,527040000,'本科-仪器类：5856元/月','本科'],[12,5745,689400000,'本科-电子商务类：5745元/月','本科'],[16,5638,902080000,'本科-金融学类：5638元/月','本科'],[7,5630,394100000,'本科-交通运输类：5630元/月','本科'],[6,5625,337500000,'本科-管理科学与工程类：5635元/月','本科'],[3,5576,167280000,'本科-数学类:5576元/月','本科'],[8,5543,443440000,'本科-财政学类:5548元/月','本科']]
+                                    ];
+                                    option = {
+                                        legend: {
+                                            right: '10%',
+                                            top: '3%',
+                                            data: ['高职', '本科']
+                                        },
+                                        grid: {
+                                            left: '8%',
+                                            top: '10%'
+                                        },
+                                        yAxis: {
+                                            type: 'value',
+                                            name: '薪资/月',
+                                            nameGap: 16,
+                                            nameTextStyle: {
+                                                fontSize: 16
+                                            },
+                                            min:4000,
+                                            max:7000,
+                                            splitLine: {
+                                                show: false
+                                            },
+                                        },
+                                        xAxis: {
+                                            type: 'value',
+                                            name: '就业人数/万人',
+                                            nameLocation: 'center',
+                                            nameGap: 25,
+                                            nameTextStyle: {
+                                                fontSize: 16
+                                            },
+                                            max:20,
+                                            splitLine: {
+                                                show: false
+                                            }
+                                        },
+                                        grid: {
+                                            right: 0,
+                                            left: 50
+                                        },
+                                        series: [{
+                                            name: '高职',
+                                            data: data[0],
+                                            type: 'scatter',
+                                            symbolSize: function (data) {
+                                                return Math.sqrt(data[2]) / 5e2;
+                                            },
+                                            emphasis: {
+                                                focus: 'series',
+                                                label: {
+                                                    show: true,
+                                                    formatter: function (param) {
+                                                        return param.data[3];
+                                                    },
+                                                    position: 'top'
+                                                }
+                                            },
+                                            itemStyle: {
+                                                shadowBlur: 10,
+                                                shadowColor: 'rgba(120, 36, 50, 0.5)',
+                                                shadowOffsetY: 5,
+                                                color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                                                    offset: 0,
+                                                    color: 'rgb(251, 118, 123)'
+                                                }, {
+                                                    offset: 1,
+                                                    color: 'rgb(204, 46, 72)'
+                                                }])
+                                            }
+                                        }, {
+                                            name: '本科',
+                                            data: data[1],
+                                            type: 'scatter',
+                                            symbolSize: function (data) {
+                                                return Math.sqrt(data[2]) / 5e2;
+                                            },
+                                            emphasis: {
+                                                focus: 'series',
+                                                label: {
+                                                    show: true,
+                                                    formatter: function (param) {
+                                                        return param.data[3];
+                                                    },
+                                                    position: 'top'
+                                                }
+                                            },
+                                            itemStyle: {
+                                                shadowBlur: 10,
+                                                shadowColor: 'rgba(25, 100, 150, 0.5)',
+                                                shadowOffsetY: 5,
+                                                color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
+                                                    offset: 0,
+                                                    color: 'rgb(129, 227, 238)'
+                                                }, {
+                                                    offset: 1,
+                                                    color: 'rgb(25, 183, 207)'
+                                                }])
+                                            }
+                                        }]
+                                    };
+
+                                    option && myChart.setOption(option);
+
+                                    echarts.init(document.getElementById("salaryByMajor")).setOption(option, true);
+                                </script>
                             </div>
                             <!--End single tab content-->
                             <!--Start single tab content-->
@@ -315,7 +918,7 @@
                         <div class="contents text-center">
                             <h4>就业去向</h4>
                             <p></p>
-                            <a href="#" class="btn btn-main">查看分析</a>
+                            <a value="new page"  onclick="window.open('./charts/work.html')" class="btn btn-main">查看分析</a>
                         </div>
                     </div>
                 </div>
@@ -325,7 +928,7 @@
                         <div class="contents text-center">
                             <h4>国内升学去向</h4>
                             <p></p>
-                            <a href="#" class="btn btn-main">查看分析</a>
+                            <a  value="new page"  onclick="window.open('./charts/PostgraduateInChina2015.html')"class="btn btn-main">查看分析</a>
                         </div>
                     </div>
                 </div>
@@ -335,7 +938,7 @@
                         <div class="contents text-center">
                             <h4>出国留学去向</h4>
                             <p></p>
-                            <a href="#" class="btn btn-main">查看分析</a>
+                            <a value="new page"  onclick="window.open('./earth.html')" class="btn btn-main">查看分析</a>
                         </div>
                     </div>
                 </div>

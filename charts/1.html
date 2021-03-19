@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@1/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@1/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/world.js"></script>
+    <script type="text/javascript" src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
+    <style>
+        body{
+            background:url('');
+            background-size: cover;
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="charts1" style="width: 100%;height:100%;text-align: center"></div>
+<div id="zhuzhuang" style="width:300px; height:200px;margin: 0 auto;text-align: center"></div>
+<script type="text/javascript">
+    var dom = document.getElementById("charts1");
+    var myChart = echarts.init(dom);
+    var app = {};
+    
+    var geoCoordMap = {
+        "黑龙江": [127.9688, 45.368],
+        "内蒙古": [110.3467, 41.4899],
+        "吉林": [125.8154, 44.2584],
+        "北京": [116.4551, 40.2539],
+        "辽宁": [123.1238, 42.1216],
+        "河北": [114.4995, 38.1006],
+        "天津": [117.4219, 39.4189],
+        "陕西": [109.1162, 34.2004],
+        "四川": [103.9526, 30.7617],
+        "江苏": [118.8062, 31.9208],
+        "湖北": [114.3896, 30.6628],
+        "浙江": [119.5313, 29.8773],
+        "福建": [119.4543, 25.9222],
+        "湖南": [113.0823, 28.2568],
+        "贵州": [106.6992, 26.7682],
+        "云南": [102.9199, 25.4663],
+        "广东": [113.12244, 23.009505],
+        "广西": [108.479, 23.1152],
+        "海南": [110.3893, 19.8516],
+        "上海": [121.4648, 31.2891]
+     };
+    var chinaDatas = [
+         [{
+             name: '黑龙江',
+             value: [1.02,1.30]
+         }],
+         [{
+             name: '内蒙古',
+             value: [0.47,0.42]
+         }],
+         [{
+             name: '吉林',
+             value: [0.46,0.48]
+         }],
+         [{
+             name: '北京',
+             value: [0.24,0.28]
+         }],
+         [{
+             name: '辽宁',
+             value: [0.34,0.35]
+         }],
+         [{
+             name: '河北',
+             value: [0.45,0.51]
+         }],
+         [{
+             name: '天津',
+             value: [0.47,0.49]
+         }],
+         [{
+             name: '陕西',
+             value: [1.07,1.43]
+         }],
+         [{
+             name: '四川',
+             value: [0.57,0.47]
+         }],
+         [{
+             name: '江苏',
+             value: [1.39,2.07]
+         }],
+         [{
+             name: '湖北',
+             value: [1.03,2.06]
+         }],
+         [{
+             name: '浙江',
+             value: [1.84,1.52]
+         }],
+         [{
+             name: '福建',
+             value: [1.39,1.23]
+         }],
+         [{
+             name: '湖南',
+             value: [0.47,0.46]
+         }],
+         [{
+             name: '贵州',
+             value: [0.65,0.39]
+         }],
+         [{
+             name: '云南',
+             value: [1.70,1.33]
+         }],
+         [{
+             name: '广东',
+             value: [1.40,1.50]
+         }],
+         [{
+             name: '广西',
+             value: [1.50,1.43]
+         }],
+         [{
+             name: '海南',
+             value: [1.15,1.20]
+         }],
+         [{
+             name: '上海',
+             value: [0.47,0.50]
+         }]
+     ];
+    
+    var convertData = function(data) {
+         var res = [];
+         for (var i = 0; i < data.length; i++) {
+             var geoCoord = geoCoordMap[data[i][0].name];
+             if (geoCoord) {
+                 res.push({
+                     name: data[i][0].name,
+                     value: geoCoord.concat(data[i][0].value)
+                 });
+             }
+         }
+         return res;
+     };
+
+     option = {
+         backgroundColor: 'rgb(128,128,128,0)',
+         visualMap: [{
+             type: 'piecewise',
+             show: false,
+             seriesIndex: 0,
+             text: ['bar3D'],
+             calculable: true,
+             max: 300,
+             pieces: [      
+                { gte: 1.2, lte: 2.07, color: '#c52020' }, 
+                { gte: 0.28, lte: 0.51, color: '#40a740' },
+            ]
+         }],
+         geo3D: {
+             map: 'china',
+             roam: true,
+             itemStyle: {
+                 areaColor: 'rgb(5,101,123)',
+                 opacity: 1,
+                 borderWidth: 0.8,
+                 borderColor: 'rgb(62,215,213)'
+             },
+             label: {
+                 show: false,
+             },
+             emphasis: { 
+                 label: {
+                     show: true,
+                     textStyle: {
+                         color: '#000',
+                         fontSize: 15,
+                         backgroundColor: 'rgba(0,23,11,0)'
+                     }
+                 }
+             },
+             light: {
+                 main: {
+                     color: '#fff', 
+                     intensity: 1.2, 
+                     shadowQuality: 'high', 
+                     shadow: false, 
+                     beta: 10
+
+                 },
+                 ambient: {
+                     intensity: 0.3
+                 }
+             }
+         },
+         series: [{
+             name: 'bar3D',
+             type: "bar3D",
+             coordinateSystem: 'geo3D',
+             barSize: 1, 
+             shading: 'lambert',
+             opacity: 0.1,
+             label: {
+                 show: false,
+                 formatter: function(data) {
+                     var res = "2020Q1" + data.name + ": " + data.value[3];
+                     return res;
+                 }
+             },
+             data: convertData(chinaDatas),
+         }]
+     };
+
+     myChart.on('click',function(e){
+        if(e.componentSubType == "bar3D"){
+            creatWrap();
+            var divObj = document.createElement('div');
+            $(divObj).addClass('tongJiTu');
+            divObj.id = 'zhuzhuang';
+            var divX = getMousePos()['x']; 
+            var divY = getMousePos()['y']; 
+            $(divObj).css({
+                'width': 250,
+                'height': 180,
+                'border': '1px solid #ccc',
+                'position': 'absolute',
+                'top': divY,
+                'left': divX
+            }).appendTo('.wrap');
+            var pointData = [];
+            pointData.push([e.data.name,e.data.value.slice(2)]);
+            zhuZhuangTu(pointData);
+            clearWrap('.zhedang');
+        }
+        return;
+    });
+
+    function getMousePos(e) {
+        var e = event || window.event;
+        var scrollX = document.documentElement.scrollLeft || document.body.scrollLeft;
+        var scrollY = document.documentElement.scrollTop || document.body.scrollTop;
+        var x = e.pageX || e.clientX + scrollX;
+        var y = e.pageY || e.clientY + scrollY;
+        return {'x': x,'y': y};
+    }
+    
+    function zhuZhuangTu(data) {
+        console.log(data);
+        var zhuzhuang = echarts.init(document.getElementById('zhuzhuang'));
+        option = {
+            backgroundColor: 'rgba(255,255,255,.3)',
+            legend: {
+                data: ['2019Q1','2020Q1']
+            },
+            title: {
+                text: data[0][0] + '省CIER指数对比',
+                left: 'center'
+            },
+            xAxis: [
+                {
+                    
+                    type: 'category',
+                    data: ['2019Q1','2020Q1']
+                }
+            ],
+            yAxis: [
+                {
+                    splitLine: {
+                        show: false
+                    },
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    type: 'bar',
+                    barWidth: '50%',
+                    itemStyle: {
+                        normal: {
+                            color: function(params){
+                                var colorList = ['#F75D5D','#59ED4F'];
+                                return colorList[params.dataIndex];
+                            },
+                            label: {
+                                show: true,
+                                position: 'top',
+                                textStyle: {
+                                    color: '#000'
+                                }
+                            }
+                        }
+                    },
+                    data: data[0][1]
+                }
+            ]
+        };
+        zhuzhuang.setOption(option);
+    }
+
+    function creatWrap(){
+        var zheDang = document.createElement('div');
+        $(zheDang).addClass('zhedang').css({
+            width: '100%',
+            height: '100%',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            backgroundColor: 'rgba(0,0,0,.2)'
+        }).appendTo('.wrap');
+    }
+    
+    function clearWrap(id){
+        $(id).click(function(e){
+            this.remove();
+            $('.tongJiTu').remove();
+            return false;
+        });
+    }
+
+    echarts.init(document.getElementById("charts1")).setOption(option, true);
+</script>
+
+</body>
+</html>
