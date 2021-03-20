@@ -35,6 +35,38 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/china.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/world.js"></script>
     <script type="text/javascript" src="https://oisanjavax.github.io/echarts-wordcloud/dist/echarts-wordcloud.min.js"></script>
+    <script>
+        export default {
+            mounted() {
+                this.setMyChart();
+            },
+            methods: {
+                //防止切换视图时图表被压缩变形
+                setMychart () {
+                    //原生js写法
+                    //这是一个封装好的方法，兼容IE，第一个参数，element,第二个属性，css样式
+                    function getStyle(obj, attr) {
+                        if (obj.currentStyle) {
+                            return obj.currentStyle[attr];
+                        } else {
+                            return document.defaultView.getComputedStyle(obj, null)[attr];
+                        }
+                    }
+
+                    //获取父元素
+                    let echarts = document.querySelector('.chart-show-container');
+                    //获取父元素宽高
+                    let echartsWidth = getStyle(echarts, 'width');
+                    let echartsHeight = getStyle(echarts, 'height');
+                    //获取图表元素
+                    let myChart = document.querySelector('#TotalRevenueChartContainer');
+                    //将父元素宽高赋值给图表
+                    myChart.style.width = echartsWidth;
+                    myChart.style.height = echartsHeight;
+                }
+            }
+        };
+    </script>
 
 
 </head>
@@ -176,17 +208,23 @@
                                 <li role="presentation">
                                     <a href="#object4" data-toggle="tab">行业薪资</a>
                                 </li>
+                                <li role="presentation">
+                                    <a href="#object5" data-toggle="tab">留学地分布</a>
+                                </li>
 
                             </ul>
                         </div>
                         <!--Start single tab content-->
                         <div class="tab-content">
-                            <div class="block-box tab-pane fade in active row" id="object1">
-                                <div id="jobOrientation" style="width: 80%;height:500px;margin: 0 auto"></div>
+                            <div class="block-box tab-pane fade in active row" id="object1" >
+                                <div id="jobOrientation" style="width: 900px;height:500px;margin: 0 auto"></div>
                                 <script type="text/javascript">
+
+
                                     var dom = document.getElementById("jobOrientation");
                                     var myChart = echarts.init(dom);
                                     var app = {};
+
                                     let datalist = [
                                         {
                                             name: "研究生"
@@ -493,11 +531,12 @@
                             </div>
                             <!--End single tab content-->
                             <!--Start single tab content-->
-                            <div class="block-box tab-pane fade in active row" id="object2">
-                                <div id="DesiredCity" style="width: 80%;height:500px;margin: 0 auto"></div>
+                            <div class="block-box tab-pane fade in" id="object2">
+                                <div id="DesiredCity" style="width: 900px;height:500px;margin: 0 auto"></div>
                                 <script type="text/javascript">
+
                                     var dom = document.getElementById("DesiredCity");
-                                    var myChart = echarts.init(dom);
+                                    var myChart1 = echarts.init(dom);
                                     var app = {};
 
                                     var posList = [
@@ -506,6 +545,7 @@
                                         'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
                                         'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
                                     ];
+
 
                                     app.configParameters = {
                                         rotate: {
@@ -554,7 +594,7 @@
                                                     distance: app.config.distance
                                                 }
                                             };
-                                            myChart.setOption({
+                                            myChart1.setOption({
                                                 series: [{
                                                     label: labelOption
                                                 }, {
@@ -567,6 +607,8 @@
                                             });
                                         }
                                     };
+
+
 
 
                                     option = {
@@ -661,13 +703,17 @@
                                         ]
                                     };
 
+                                    window.onresize = function(){
+                                        setTimeout("myChart1.resize()",100);
+                                    }
+
                                     echarts.init(document.getElementById("DesiredCity")).setOption(option, true);
                                 </script>
                             </div>
                             <!--End single tab content-->
                             <!--Start single tab content-->
-                            <div class="block-box tab-pane fade in active row" id="object3">
-                                <div id="situationOfMajor" style="width: 80%;height:500px;margin: 0 auto;"></div>
+                            <div class="block-box tab-pane fade in" id="object3">
+                                <div id="situationOfMajor" style="width: 900px;height:500px;margin: 0 auto;"></div>
                                 <script type="text/javascript">
                                     var dom = document.getElementById("situationOfMajor");
                                     var myChart = echarts.init(dom);
@@ -705,7 +751,7 @@
 
                                         series: [
                                             {
-                                                name: '漏斗图',
+                                                name: '',
                                                 type: 'funnel',
                                                 color:['#20b2aa','#33ff99','#2e8b57','#7fff00','#006400'],
                                                 width: '40%',
@@ -724,7 +770,7 @@
                                                 ]
                                             },
                                             {
-                                                name: '金字塔',
+                                                name: '',
                                                 type: 'funnel',
                                                 color:['#800000','#a52a2a','#b22222','#dc143c','#ff0000'],
                                                 width: '40%',
@@ -746,6 +792,10 @@
                                         ]
                                     };
 
+                                    window.onresize = function(){
+                                        setTimeout("myChart.resize()",100);
+                                    }
+
                                     option && myChart.setOption(option);
 
                                     echarts.init(document.getElementById("situationOfMajor")).setOption(option, true);
@@ -753,8 +803,8 @@
                             </div>
                             <!--End single tab content-->
                             <!--Start single tab content-->
-                            <div class="block-box tab-pane fade in active row" id="object4">
-                                <div id="salaryByMajor" style="width: 80%;height:500px;margin: 0 auto"></div>
+                            <div class="block-box tab-pane fade in" id="object4">
+                                <div id="salaryByMajor" style="width: 900px;height:500px;margin: 0 auto"></div>
                                 <script type="text/javascript">
                                     var dom = document.getElementById("salaryByMajor");
                                     var myChart = echarts.init(dom);
@@ -865,7 +915,11 @@
                                         }]
                                     };
 
-                                    option && myChart.setOption(option);
+                                    window.onresize = function(){
+                                        setTimeout("myChart.resize()",100);
+                                    }
+
+                                    myChart.setOption(option,true);
 
                                     echarts.init(document.getElementById("salaryByMajor")).setOption(option, true);
                                 </script>
@@ -873,27 +927,326 @@
                             <!--End single tab content-->
                             <!--Start single tab content-->
                             <div class="block-box tab-pane fade in" id="object5">
-                                <div class="col-md-6">
-                                    <img class="img-responsive" src="images/current/current_1.jpg" alt="service-image">
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="contents">
-                                        <div class="section-title">
-                                            <h3 herf="http://www.yanxian.org/html/kydt/8813.html">就业去向</h3>
-                                        </div>
-                                        <div class="text">
-                                        </div>
-                                        <ul class="content-list">
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                            <li>
-                                                <i class="fa fa-dot-circle-o"></i>正在绘制中</li>
-                                        </ul>
-                                        <a href="#" class="btn btn-style-one">正在绘制中</a>
-                                    </div>
-                                </div>
+                                <div id="abordSituaion" style="width: 900px;height:500px;margin: 0 auto"></div>
+                                <script type="text/javascript">
+                                    var dom = document.getElementById("abordSituaion");
+                                    var myChart = echarts.init(dom);
+                                    var app = {};
+
+                                    option = {
+                                        backgroundColor: '#ffffff',
+                                        legend: {
+                                            top: '6%',
+                                            textStyle: {
+                                                color: '#717171'
+                                            },
+                                        },
+                                        grid: {
+                                            right: 0,
+                                            left: 50,
+                                            containLabel: true
+                                        },
+                                        xAxis: {
+                                            type: 'value',
+                                            splitLine: {
+                                                lineStyle: {
+                                                    color: 'rgba(255,255,255,0.3)'
+                                                }
+                                            },
+                                            axisTick: {
+                                                show: false
+                                            },
+                                            axisLine: {
+                                                show: false
+                                            },
+                                            min: 0,
+                                            max: 100,
+                                            axisLabel: {
+                                                color: '#5f5f5f',
+                                            }
+                                        },
+                                        yAxis: {
+                                            type: 'category',
+                                            data: ['美国', '英国', '加拿大', '澳大利亚', '新加坡'],
+                                            axisLine: {
+                                                lineStyle: {
+                                                    color: 'rgba(255,255,255,0.3)'
+                                                }
+                                            },
+                                            splitLine: {
+                                                show: false
+                                            },
+                                            axisTick: {
+                                                show: false
+                                            },
+                                            axisLabel: {
+                                                color: '#a4a8b4',
+                                            }
+                                        },
+                                        color: [
+                                            new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                offset: 0,
+                                                color: 'rgba(235,112,236,.8)'
+                                            },
+                                                {
+                                                    offset: 0.8,
+                                                    color: 'rgba(77,75,221,.8)'
+                                                },
+                                                {
+                                                    offset: 1,
+                                                    color: 'rgba(77,75,221,0)'
+                                                }
+                                            ]),
+                                            new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                offset: 0,
+                                                color: 'rgba(255,157,96,.8)'
+                                            },
+                                                {
+                                                    offset: 0.8,
+                                                    color: 'rgba(246,84,157,.8)'
+                                                },
+                                                {
+                                                    offset: 1,
+                                                    color: 'rgba(246,84,157,0)'
+                                                }
+                                            ]),
+                                            new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                offset: 0,
+                                                color: 'rgba(132,225,145,.8)'
+                                            },
+                                                {
+                                                    offset: 0.8,
+                                                    color: 'rgba(106,185,242,.8)'
+                                                },
+                                                {
+                                                    offset: 1,
+                                                    color: 'rgba(106,185,242,0)'
+                                                }
+                                            ]),
+                                        ],
+                                        series: [{
+                                            name: '',
+                                            type: 'bar',
+                                            xAxisIndex: 0,
+                                            yAxisIndex: 0,
+                                            data: [100, 100, 100, 100, 100,],
+                                            barWidth: 5,
+                                            itemStyle: {
+                                                normal: {
+                                                    color: 'rgba(255, 255, 255, .1)',
+                                                },
+                                            },
+                                            z: 1
+                                        },
+                                            {
+                                                name: '高中及以下',
+                                                type: 'bar',
+                                                stack: 'Tik Tok',
+                                                barWidth: 25,
+                                                itemStyle: {
+                                                    shadowColor: '#000',
+                                                    shadowBlur: 10,
+                                                    shadowOffsetY: 0,
+                                                    shadowOffsetX: 0,
+                                                    borderColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                            offset: 0,
+                                                            color: 'rgba(240,82,255,1)'
+                                                        },
+                                                            {
+                                                                offset: 0.8,
+                                                                color: 'rgba(77,75,221,1)'
+                                                            },
+                                                            {
+                                                                offset: 1,
+                                                                color: 'rgba(77,75,221,0)'
+                                                            }
+                                                        ],
+                                                        false
+                                                    ),
+                                                    borderWidth: 1,
+                                                },
+                                                label: {
+                                                    normal: {
+                                                        show: true,
+                                                        position: 'insideRight',
+                                                        offset: [-20, 0],
+                                                        formatter: '{c}%',
+                                                        textStyle: {
+                                                            align: 'center',
+                                                            baseline: 'middle',
+                                                            fontSize: 14,
+                                                            fontWeight: '400',
+                                                            color: '#000000',
+                                                            textShadowColor:'#8e8e8e',
+                                                            textShadowBlur:'0',
+                                                            textShadowOffsetX:1,
+                                                            textShadowOffsetY:1,
+                                                        }
+                                                    },
+                                                },
+                                                data: [5,3,6,2,11]
+                                            },
+                                            {
+                                                name: '本科',
+                                                type: 'bar',
+                                                stack: 'Tik Tok',
+                                                barWidth: 25,
+                                                itemStyle: {
+                                                    shadowColor: '#000',
+                                                    shadowBlur: 10,
+                                                    shadowOffsetY: 0,
+                                                    shadowOffsetX: 0,
+                                                    borderColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                            offset: 0,
+                                                            color: 'rgba(255,151,60,.8)'
+                                                        },
+                                                            {
+                                                                offset: 0.8,
+                                                                color: 'rgba(246,84,157,.8)'
+                                                            },
+                                                            {
+                                                                offset: 1,
+                                                                color: 'rgba(246,84,157,0)'
+                                                            }
+                                                        ],
+                                                        false
+                                                    ),
+                                                    borderWidth: 1,
+                                                },
+                                                label: {
+                                                    normal: {
+                                                        show: true,
+                                                        position: 'insideRight',
+                                                        offset: [-20, 0],
+                                                        formatter: '{c}%',
+                                                        textStyle: {
+                                                            align: 'center',
+                                                            baseline: 'middle',
+                                                            fontSize: 14,
+                                                            fontWeight: '400',
+                                                            color: '#fff',
+                                                            textShadowColor:'#000',
+                                                            textShadowBlur:'0',
+                                                            textShadowOffsetX:1,
+                                                            textShadowOffsetY:1,
+                                                        }
+                                                    },
+                                                },
+                                                data: [29,25,44,29,35]
+                                            },
+                                            {
+                                                name: '硕士',
+                                                type: 'bar',
+                                                stack: 'Tik Tok',
+                                                barWidth: 25,
+                                                itemStyle: {
+                                                    shadowColor: '#000',
+                                                    shadowBlur: 10,
+                                                    shadowOffsetY: 0,
+                                                    shadowOffsetX: 0,
+                                                    borderColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                            offset: 0,
+                                                            color: 'rgba(102,255,124,.8)'
+                                                        },
+                                                            {
+                                                                offset: 0.8,
+                                                                color: 'rgba(106,185,242,.8)'
+                                                            },
+                                                            {
+                                                                offset: 1,
+                                                                color: 'rgba(106,185,242,0)'
+                                                            }
+                                                        ],
+                                                        false
+                                                    ),
+                                                    borderWidth: 1,
+                                                },
+                                                label: {
+                                                    normal: {
+                                                        show: true,
+                                                        position: 'insideRight',
+                                                        offset: [-20, 0],
+                                                        formatter: '{c}%',
+                                                        textStyle: {
+                                                            align: 'center',
+                                                            baseline: 'middle',
+                                                            fontSize: 14,
+                                                            fontWeight: '400',
+                                                            color: '#fff',
+                                                            textShadowColor:'#000',
+                                                            textShadowBlur:'0',
+                                                            textShadowOffsetX:1,
+                                                            textShadowOffsetY:1,
+                                                        }
+                                                    },
+                                                },
+                                                data: [26,39,30,37,32]
+                                            },
+                                            {
+                                                name: '博士或博士后',
+                                                type: 'bar',
+                                                stack: 'Tik Tok',
+                                                barWidth: 25,
+                                                itemStyle: {
+                                                    shadowColor: '#000',
+                                                    shadowBlur: 10,
+                                                    shadowOffsetY: 0,
+                                                    shadowOffsetX: 0,
+                                                    borderColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                            offset: 0,
+                                                            color: 'rgba(102,255,124,.8)'
+                                                        },
+                                                            {
+                                                                offset: 0.8,
+                                                                color: 'rgba(106,185,242,.8)'
+                                                            },
+                                                            {
+                                                                offset: 1,
+                                                                color: 'rgba(106,185,242,0)'
+                                                            }
+                                                        ],
+                                                        false
+                                                    ),
+                                                    borderWidth: 1,
+                                                },
+                                                label: {
+                                                    normal: {
+                                                        show: true,
+                                                        position: 'insideRight',
+                                                        offset: [-20, 0],
+                                                        formatter: '{c}%',
+                                                        textStyle: {
+                                                            align: 'center',
+                                                            baseline: 'middle',
+                                                            fontSize: 14,
+                                                            fontWeight: '400',
+                                                            color: '#fff',
+                                                            textShadowColor:'#000',
+                                                            textShadowBlur:'0',
+                                                            textShadowOffsetX:1,
+                                                            textShadowOffsetY:1,
+                                                        }
+                                                    },
+                                                },
+                                                data: [40,33,20,32,22]
+                                            },
+                                            {
+                                                name: '',
+                                                type: 'bar',
+                                                data: [100, 100, 100, 100, 100, ],
+                                                barWidth: 10,
+                                                itemStyle: {
+                                                    normal: {
+                                                        color: 'rgba(255, 255, 255, .1)',
+                                                    },
+                                                },
+                                                z: 1
+                                            },
+                                        ]
+                                    };
+
+                                    echarts.init(document.getElementById("abordSituaion")).setOption(option, true);
+                                </script>
                             </div>
                             <!--End single tab content-->
                         </div>
@@ -1105,18 +1458,6 @@
             <div class="testimonial-carousel">
                 <!--Slide Item-->
                 <div class="slide-item">
-                    <div class="inner-box text-center">
-                        <div class="image-box" value="new page"  onclick="window.open('https://www.clssn.com/html1/report/22/6977-1.htm')">
-                            <figure>
-                                <img href="https://www.clssn.com/html1/report/22/6977-1.htm" src="images/Cpolicy/laodong.jpg" alt="">
-                            </figure>
-                        </div>
-                        <h6 href="https://www.clssn.com/html1/report/22/6977-1.htm">中国劳动保障报</h6>
-                        <p>后疫情时代　促进高校毕业生就业的建议</p>
-                    </div>
-                </div>
-                <!--Slide Item-->
-                <div class="slide-item">
                     <div class="inner-box text-center" value="new page"  onclick="window.open('./charts/policy.html')">
                         <div class="image-box">
                             <figure>
@@ -1129,88 +1470,17 @@
                 </div>
                 <!--Slide Item-->
                 <div class="slide-item">
-                    <div class="inner-box text-center" value="new page"  onclick="window.open('./charts/policy.html')" >
-                        <div class="image-box">
-                            <figure>
-                                <img href="http://www.fx361.com/page/2020/0629/6810675.shtml" src="images/Cpolicy/keji.jpg" alt="">
-                            </figure>
-                        </div>
-                        <h6 href="http://www.fx361.com/page/2020/0629/6810675.shtml">中国科技纵横 </h6>
-                        <p>疫情期间高校毕业生就业现状及应对措施探析</p>
-                    </div>
-                </div>
-                <!--Slide Item-->
-                <div class="slide-item">
-                    <div class="inner-box text-center" value="new page"  onclick="window.open('https://www.clssn.com/html1/report/22/6977-1.htm')">
-                        <div class="image-box">
+                    <div class="inner-box text-center">
+                        <div class="image-box" value="new page"  onclick="window.open('https://www.clssn.com/html1/report/22/6977-1.htm')">
                             <figure>
                                 <img href="https://www.clssn.com/html1/report/22/6977-1.htm" src="images/Cpolicy/laodong.jpg" alt="">
                             </figure>
                         </div>
-                        <h6 href="https://www.clssn.com/html1/report/22/6977-1.htm">中国劳动保障报</h6>
-                        <p>后疫情时代　促进高校毕业生就业的建议</p>
+                        <h6 href="https://www.clssn.com/html1/report/22/6977-1.htm">各大新闻媒体</h6>
+                        <p>后疫情时代：促进高校毕业生就业的建议汇总</p>
                     </div>
                 </div>
-                <!--Slide Item-->
-                <div class="slide-item">
-                    <div class="inner-box text-center" value="new page"  onclick="window.open('https://zj.zjol.com.cn/red_boat.html?id=100705290')">
-                        <div class="image-box">
-                            <figure>
-                                <img href="https://zj.zjol.com.cn/red_boat.html?id=100705290" src="images/Cpolicy/longquan.jpg" alt="">
-                            </figure>
-                        </div>
-                        <h6 href="https://zj.zjol.com.cn/red_boat.html?id=100705290">龙泉新青年</h6>
-                        <p href="https://zj.zjol.com.cn/red_boat.html?id=100705290">疫情防控期间高校毕业生就业创业新政汇总</p>
-                    </div>
-                </div>
-                <!--Slide Item-->
-                <div class="slide-item">
-                    <div class="inner-box text-center" value="new page"  onclick="window.open('http://www.fx361.com/page/2020/0629/6810675.shtml')">
-                        <div class="image-box">
-                            <figure>
-                                <img href="http://www.fx361.com/page/2020/0629/6810675.shtml" src="images/Cpolicy/keji.jpg" alt="">
-                            </figure>
-                        </div>
-                        <h6 href="http://www.fx361.com/page/2020/0629/6810675.shtml">中国科技纵横 </h6>
-                        <p>疫情期间高校毕业生就业现状及应对措施探析</p>
-                    </div>
-                </div>
-                <!--Slide Item-->
-                <div class="slide-item">
-                    <div class="inner-box text-center" value="new page"  onclick="window.open('https://www.clssn.com/html1/report/22/6977-1.htm')">
-                        <div class="image-box">
-                            <figure>
-                                <img href="https://www.clssn.com/html1/report/22/6977-1.htm" src="images/Cpolicy/laodong.jpg" alt="">
-                            </figure>
-                        </div>
-                        <h6 href="https://www.clssn.com/html1/report/22/6977-1.htm">中国劳动保障报</h6>
-                        <p>后疫情时代　促进高校毕业生就业的建议</p>
-                    </div>
-                </div>
-                <!--Slide Item-->
-                <div class="slide-item">
-                    <div class="inner-box text-center" value="new page"  onclick="window.open('https://zj.zjol.com.cn/red_boat.html?id=100705290')">
-                        <div class="image-box">
-                            <figure>
-                                <img href="https://zj.zjol.com.cn/red_boat.html?id=100705290" src="images/Cpolicy/longquan.jpg" alt="">
-                            </figure>
-                        </div>
-                        <h6 href="https://zj.zjol.com.cn/red_boat.html?id=100705290">龙泉新青年</h6>
-                        <p href="https://zj.zjol.com.cn/red_boat.html?id=100705290">疫情防控期间高校毕业生就业创业新政汇总</p>
-                    </div>
-                </div>
-                <!--Slide Item-->
-                <div class="slide-item">
-                    <div class="inner-box text-center" value="new page"  onclick="window.open('http://www.fx361.com/page/2020/0629/6810675.shtml')">
-                        <div class="image-box">
-                            <figure>
-                                <img href="http://www.fx361.com/page/2020/0629/6810675.shtml" src="images/Cpolicy/keji.jpg" alt="">
-                            </figure>
-                        </div>
-                        <h6 href="http://www.fx361.com/page/2020/0629/6810675.shtml">中国科技纵横 </h6>
-                        <p>疫情期间高校毕业生就业现状及应对措施探析</p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
