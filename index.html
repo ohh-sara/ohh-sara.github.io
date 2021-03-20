@@ -74,7 +74,7 @@
 
 <body>
 <div class="page-wrapper">
-
+    <a name="index" class="blank">"   "</a>
     <!--header top-->
     <div class="header-top">
         <div class="container clearfix">
@@ -101,11 +101,11 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li class="active">
+                    <li class="active menu-active">
                         <a href="#index">主页</a>
                     </li>
                     <li>
-                        <a href="#major">现状及舆情</a>
+                        <a href="#major">毕业信息回顾</a>
                     </li>
                     <li>
                         <a href="#dipositionAnalysis">毕业生去向可视化</a>
@@ -117,13 +117,13 @@
                         <a href="#Cimpact">疫情影响可视化</a>
                     </li>
                     <li>
-                        <a href="#Cpolicy">政策与建议</a>
+                        <a href="#Cpolicy">政策汇总</a>
                     </li>
                     <li>
                         <a href="#team">团队</a>
                     </li>
                     <li>
-                        <a href="#contact#">联系我们</a>
+                        <a href="#dataSources">数据来源</a>
                     </li>
                 </ul>
             </div>
@@ -132,7 +132,8 @@
         <!-- /.container-fluid -->
     </nav>
     <!--End Main Header -->
-    <a name="index" class="blank">"   "</a>
+
+
     <!--==================================            Page Slider            ===================================-->
     <div class="hero-slider">
         <!-- Slider Item -->
@@ -753,7 +754,7 @@
                                             {
                                                 name: '',
                                                 type: 'funnel',
-                                                color:['#20b2aa','#33ff99','#2e8b57','#7fff00','#006400'],
+                                                color:['#a0bf7c','#65934a','#407434','#006400','#03230e'],
                                                 width: '40%',
                                                 height: '45%',
                                                 left: '55%',
@@ -772,7 +773,7 @@
                                             {
                                                 name: '',
                                                 type: 'funnel',
-                                                color:['#800000','#a52a2a','#b22222','#dc143c','#ff0000'],
+                                                color:['#fcc','#f99','#f66','#f33','#f00'],
                                                 width: '40%',
                                                 height: '45%',
                                                 left: '55%',
@@ -872,9 +873,6 @@
                                                 }
                                             },
                                             itemStyle: {
-                                                shadowBlur: 10,
-                                                shadowColor: 'rgba(120, 36, 50, 0.5)',
-                                                shadowOffsetY: 5,
                                                 color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
                                                     offset: 0,
                                                     color: 'rgb(251, 118, 123)'
@@ -901,9 +899,6 @@
                                                 }
                                             },
                                             itemStyle: {
-                                                shadowBlur: 10,
-                                                shadowColor: 'rgba(25, 100, 150, 0.5)',
-                                                shadowOffsetY: 5,
                                                 color: new echarts.graphic.RadialGradient(0.4, 0.3, 1, [{
                                                     offset: 0,
                                                     color: 'rgb(129, 227, 238)'
@@ -1044,10 +1039,6 @@
                                                 stack: 'Tik Tok',
                                                 barWidth: 25,
                                                 itemStyle: {
-                                                    shadowColor: '#000',
-                                                    shadowBlur: 10,
-                                                    shadowOffsetY: 0,
-                                                    shadowOffsetX: 0,
                                                     borderColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
                                                             offset: 0,
                                                             color: 'rgba(240,82,255,1)'
@@ -1077,11 +1068,7 @@
                                                             fontSize: 14,
                                                             fontWeight: '400',
                                                             color: '#000000',
-                                                            textShadowColor:'#8e8e8e',
-                                                            textShadowBlur:'0',
-                                                            textShadowOffsetX:1,
-                                                            textShadowOffsetY:1,
-                                                        }
+                                                            }
                                                     },
                                                 },
                                                 data: [5,3,6,2,11]
@@ -1092,11 +1079,7 @@
                                                 stack: 'Tik Tok',
                                                 barWidth: 25,
                                                 itemStyle: {
-                                                    shadowColor: '#000',
-                                                    shadowBlur: 10,
-                                                    shadowOffsetY: 0,
-                                                    shadowOffsetX: 0,
-                                                    borderColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                   borderColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
                                                             offset: 0,
                                                             color: 'rgba(255,151,60,.8)'
                                                         },
@@ -1125,11 +1108,7 @@
                                                             fontSize: 14,
                                                             fontWeight: '400',
                                                             color: '#fff',
-                                                            textShadowColor:'#000',
-                                                            textShadowBlur:'0',
-                                                            textShadowOffsetX:1,
-                                                            textShadowOffsetY:1,
-                                                        }
+                                                      }
                                                     },
                                                 },
                                                 data: [29,25,44,29,35]
@@ -1140,11 +1119,7 @@
                                                 stack: 'Tik Tok',
                                                 barWidth: 25,
                                                 itemStyle: {
-                                                    shadowColor: '#000',
-                                                    shadowBlur: 10,
-                                                    shadowOffsetY: 0,
-                                                    shadowOffsetX: 0,
-                                                    borderColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                  borderColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
                                                             offset: 0,
                                                             color: 'rgba(102,255,124,.8)'
                                                         },
@@ -1173,11 +1148,7 @@
                                                             fontSize: 14,
                                                             fontWeight: '400',
                                                             color: '#fff',
-                                                            textShadowColor:'#000',
-                                                            textShadowBlur:'0',
-                                                            textShadowOffsetX:1,
-                                                            textShadowOffsetY:1,
-                                                        }
+                                                            }
                                                     },
                                                 },
                                                 data: [26,39,30,37,32]
@@ -1188,11 +1159,7 @@
                                                 stack: 'Tik Tok',
                                                 barWidth: 25,
                                                 itemStyle: {
-                                                    shadowColor: '#000',
-                                                    shadowBlur: 10,
-                                                    shadowOffsetY: 0,
-                                                    shadowOffsetX: 0,
-                                                    borderColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
+                                                   borderColor: new echarts.graphic.LinearGradient(1, 0, 0, 0, [{
                                                             offset: 0,
                                                             color: 'rgba(102,255,124,.8)'
                                                         },
@@ -1221,11 +1188,7 @@
                                                             fontSize: 14,
                                                             fontWeight: '400',
                                                             color: '#fff',
-                                                            textShadowColor:'#000',
-                                                            textShadowBlur:'0',
-                                                            textShadowOffsetX:1,
-                                                            textShadowOffsetY:1,
-                                                        }
+                                                          }
                                                     },
                                                 },
                                                 data: [40,33,20,32,22]
@@ -1383,18 +1346,155 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="item">
                     <div class="inner-box">
                         <div class="img_holder">
-                            <a href="https://baijiahao.baidu.com/s?id=1672020072608752195&wfr=spider&for=pc">
-                                <img src="images/CImformation/image_3.jpg" alt="images" class="img-responsive">
+                            <a href="https://baijiahao.baidu.com/s?id=1660104936687995978&wfr=spider&for=pc">
+                                <img src="images/CImformation/image_6.jpg" alt="images" class="img-responsive">
                             </a>
                         </div>
                         <div class="image-content text-center">
-                            <a href="https://baijiahao.baidu.com/s?id=1672020072608752195&wfr=spider&for=pc">
-                                <h6>疫情和美国留学新规夹击下，今年的出国留学市场遭遇了些啥？</h6>
+                            <a href="https://baijiahao.baidu.com/s?id=1660104936687995978&wfr=spider&for=pc">
+                                <h6>考研碰上疫情，复试怎么办</h6>
                             </a>
-                            <p> 调查显示，今年的中国赴海外留学的总人数会出现下降。往年此时，留学市场正进入一年的旺季。</p>
+                            <p>除了在报考人数上首次突破300万大关，达341万人，2020年考研学生的特别之处还在于，他们的复试和录取的节奏，很可能被新冠肺炎疫情打乱。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="inner-box">
+                        <div class="img_holder">
+                            <a href="https://mp.weixin.qq.com/s/A4PaZHXHP9uhfkGwyYhUag">
+                                <img src="images/CImformation/image_7.jpg" alt="images" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="image-content text-center">
+                            <a href="https://mp.weixin.qq.com/s/A4PaZHXHP9uhfkGwyYhUag">
+                                <h6>保研考核新方式？疫情下的保研我们如何应对？</h6>
+                            </a>
+                            <p>受疫情影响，各大高校延迟开学至2月底，甚至是3月初。2月份的雅思、托福考试已全部取消。美赛也新增了一个比赛时段。这些相关事情一件件的堆砌，对后续保研的影响都是巨大的。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="inner-box">
+                        <div class="img_holder">
+                            <a href="https://finance.ifeng.com/c/83QCooFtLoe">
+                                <img src="images/CImformation/image_8.jpg" alt="images" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="image-content text-center">
+                            <a href="https://finance.ifeng.com/c/83QCooFtLoe">
+                                <h6>疫情之下，留学已死？</h6>
+                            </a>
+                            <p>受疫情影响，签证办理和国际通航规模都受到了限制，为中国学生赴海外留学带来了较大挑战。全球高等教育分析机构QS在2020年下半年发布的《新冠疫情如何影响全球留学生白皮书》显示，接受调研的三万名全球留学生中超半数表示留学计划受到疫情影响，其中中国留学生受到影响的人数最多，占比66%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="inner-box">
+                        <div class="img_holder">
+                            <a href="https://www.zhihu.com/question/368752602?utm_source=qq">
+                                <img src="images/CImformation/image_9.jpg" alt="images" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="image-content text-center">
+                            <a href="https://www.zhihu.com/question/368752602?utm_source=qq">
+                                <h6>如今的疫情对出国留学会有怎样的影响?</h6>
+                            </a>
+                            <p>在持续蔓延的新冠肺炎疫情之下，中国留学生们的求学路相比往常，困难重重。有人为了按时返校，正在尝试辗转第三国避开入境禁令，也有人只好被迫休学。与之而来的，还有高昂学费的压力，房租的损失，延期毕业的风险……</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="inner-box">
+                        <div class="img_holder">
+                            <a href="https://zhidao.baidu.com/question/2017968382179483428.html">
+                                <img src="images/CImformation/image_10.jpg" alt="images" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="image-content text-center">
+                            <a href="https://zhidao.baidu.com/question/2017968382179483428.html">
+                                <h6>当前疫情对大学生就业的影响</h6>
+                            </a>
+                            <p>企业运营面临的压力，直接导致企业用工减缩，同时，由于疫情影响，更多企业对未来经济前景预期趋向负面，投资也会缩减，导致面向包括高校毕业生在内的招聘需求大幅度下滑。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="inner-box">
+                        <div class="img_holder">
+                            <a href="https://m.sohu.com/a/370854464_225382/?_f=v2-index-feeds&pvid=000115_3w_a">
+                                <img src="images/CImformation/image_11.jpg" alt="images" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="image-content text-center">
+                            <a href="https://m.sohu.com/a/370854464_225382/?_f=v2-index-feeds&pvid=000115_3w_a">
+                                <h6>疫情来了，大学生就业怎么办？</h6>
+                            </a>
+                            <p>受此次疫情影响，各高校延期开学，原计划的春招工作也不可避免地受到波及。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="inner-box">
+                        <div class="img_holder">
+                            <a href="https://zhuanlan.zhihu.com/p/161273591">
+                                <img src="images/CImformation/image_12.jpg" alt="images" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="image-content text-center">
+                            <a href="https://zhuanlan.zhihu.com/p/161273591">
+                                <h6>当考研遇上疫情，21考研难度究竟有多高？</h6>
+                            </a>
+                            <p>不管什么考试，每年都会被冠上一个最难XX年的称号，尤其是在赶上疫情的2020年，一切都变得难了起来。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="inner-box">
+                        <div class="img_holder">
+                            <a href="https://www.sohu.com/a/393946720_100181921">
+                                <img src="images/CImformation/image_13.jpg" alt="images" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="image-content text-center">
+                            <a href="https://www.sohu.com/a/393946720_100181921">
+                                <h6>疫情对保研影响大吗，推免申请流程会推迟吗？</h6>
+                            </a>
+                            <p>今年由于疫情影响，对大三的学生来说无疑是非常郁闷的一年，因为上半年大部分时间都是在家中度过的，影响的不止是正常的学习进程，还有准备推免和考研的学生们，所有的节奏都被打乱了。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="inner-box">
+                        <div class="img_holder">
+                            <a href="http://parents.tiandaoedu.com/hwyq/us/833297.html">
+                                <img src="images/CImformation/image_14.jpg" alt="images" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="image-content text-center">
+                            <a href="http://parents.tiandaoedu.com/hwyq/us/833297.html">
+                                <h6>疫情对留学影响究竟有多大？留学生必看！</h6>
+                            </a>
+                            <p>受疫情的影响，国务院及各省市发布了关于延期开学的通知，尽管各地延后时长略有不同，但二月初基本都在休假。世界卫生组织也将新型冠状病毒疫情列为国际关注的突发公共卫生事件，为防止疾病蔓延，不少国家采取行动暂时对出入境进行管控，对留学生群体也产生了很多直接或者间接的影响。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="inner-box">
+                        <div class="img_holder">
+                            <a href="http://www.moe.gov.cn/jyb_xwfb/s5147/202003/t20200320_432995.html">
+                                <img src="images/CImformation/image_15.jpg" alt="images" class="img-responsive">
+                            </a>
+                        </div>
+                        <div class="image-content text-center">
+                            <a href="http://www.moe.gov.cn/jyb_xwfb/s5147/202003/t20200320_432995.html">
+                                <h6>疫情影响下的大学毕业季，这些问题怎么办？</h6>
+                            </a>
+                            <p>2020年应届高校毕业生数量达874万人，同比增长40万人，创历史新高。往年的3月，都是毕业生撰写论文、找工作的紧张时刻，也是考研面试的时间。但在新冠肺炎疫情影响下，高校延期开学，毕业生的论文、考研、找工作等问题如何解决？</p>
                         </div>
                     </div>
                 </div>
@@ -1448,14 +1548,14 @@
     </section>
     <!--End analyze section-->
 
-    <a name="Cpolicy"></a>
+    <a class='blank' name="Cpolicy"></a>
     <!--Cpolicy-section-->
     <section class="testimonial-section" style="background: url(images/Cpolicy/background.jpg);">
         <div class="container">
             <div class="section-title text-center" >
-                <p style="color: white">我们总结了疫情期间的政府出台的一系列新政，搜集了新闻媒体、国内外学者等给予毕业生提升能力应对变化的就业市场的建议进行汇总信息展示</p>
+                <p style="color: white">我们收集了疫情期间的政府出台的一系列新政，提取其中关键信息进行汇总信息展示</p>
             </div>
-            <div class="testimonial-carousel">
+            <div class="">
                 <!--Slide Item-->
                 <div class="slide-item">
                     <div class="inner-box text-center" value="new page"  onclick="window.open('./charts/policy.html')">
@@ -1464,20 +1564,8 @@
                                 <img href="https://zj.zjol.com.cn/red_boat.html?id=100705290" src="images/Cpolicy/jiaoyubu.jpg" alt="">
                             </figure>
                         </div>
-                        <h6 value="new page"  onclick="window.open('./charts/policy.html')">中国教育部</h6>
+                        <h6 value="new page"  onclick="window.open('./charts/policy.html')">相关政策</h6>
                         <p value="new page"  onclick="window.open('./charts/policy.html')">疫情防控期间高校毕业生就业创业新政汇总</p>
-                    </div>
-                </div>
-                <!--Slide Item-->
-                <div class="slide-item">
-                    <div class="inner-box text-center">
-                        <div class="image-box" value="new page"  onclick="window.open('https://www.clssn.com/html1/report/22/6977-1.htm')">
-                            <figure>
-                                <img href="https://www.clssn.com/html1/report/22/6977-1.htm" src="images/Cpolicy/laodong.jpg" alt="">
-                            </figure>
-                        </div>
-                        <h6 href="https://www.clssn.com/html1/report/22/6977-1.htm">各大新闻媒体</h6>
-                        <p>后疫情时代：促进高校毕业生就业的建议汇总</p>
                     </div>
                 </div>
 
@@ -1512,25 +1600,41 @@
                         <img src="images/team/team_3.jpg" class="img-responsive" alt="gallery-image">
                         <a data-fancybox="images" href="images/team/team_3.jpg"></a>
                         <h3>汪芳</h3>
-                        <p>负责可视化编排、页面设计及代码编写</p>
+                        <p>负责图表绘制、页面设计及代码编写</p>
                     </div>
                 </div>
 
             </div>
         </div>
     </section>
-    <div class="blank"></div>
-    <div class="blank"></div>
-    <div class="blank"></div>
-    <div class="blank"></div>
-    <div class="blank"></div>
-    <div class="blank"></div>
-    <a name="contact"></a>
 
 
-
-</div>
-<!--End pagewrapper-->
+    <a name="dataSources"></a>
+    <section class="analyze-section section">
+        <div class="container">
+            <div class="section-title text-center">
+                <h4>数据来源</h4>
+            </div>
+            <div class="blank"></div>
+        <ul class=" row">
+            <li class="col-4">
+                <a href="http://www.moe.gov.cn/">
+                <img src="./images/dataSources/jiaoyubu.png" alt="" class="radius-image"></a>
+            </li>
+            <li class="col-4"><a href="https://map.baidu.com/@13523265.31,3641114.64,12z"><img src="./images/dataSources/baidu.png" alt="" class="radius-image"></a>
+            </li>
+            <li class="col-4"><a href="https://www.iimedia.cn/"><img src="./images/dataSources/imedia.png" alt="" class="radius-image"></a>
+            </li>
+            <li class="col-4"><a href="https://www.chyxx.com/"><img src="./images/dataSources/chyxx.png" alt=""
+                                                    class="radius-image"></a>
+            </li>
+            <li class="col-4"><a href="https://www.fxbaogao.com/"><img src="./images/dataSources/fxbaogao.png" alt=""
+                                                    class="radius-image"></a>
+            </li>
+        </ul>
+        </div>
+</section>
+<!--End dataSources-->
 
 
 <!--Scroll to top-->

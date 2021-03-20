@@ -19,10 +19,11 @@
         }
     </style>
 </head>
+
 <body style="height: 100%; margin: 0">
 
 <div style="float:left;width: 34%;height:100%;text-align: center;">
-    <div id="charts2" style="width: 100%;height:50%;text-align: center; "></div>
+    <div id="charts2" style="width: 100%;height:40%;text-align: center; "></div>
     <script type="text/javascript">
         var dom = document.getElementById("charts2");
         var myChart = echarts.init(dom);
@@ -66,15 +67,16 @@
             },
             grid: {
                 borderWidth: 0,
-                top: 110,
-                bottom: 95,
+                top: 35,
+                bottom: 50,
+                left: 50,
                 textStyle: {
                     color: "#fff"
                 }
             },
             legend: {
                 x: '38%',
-                top: '11%',
+                top: '15%',
                 textStyle: {
                     color: '#90979c',
                 },
@@ -166,7 +168,7 @@
         echarts.init(document.getElementById("charts2")).setOption(option, true);
     </script>
 
-    <div id="charts5" style="width: 100%;height:50%;text-align: center;"></div>
+    <div id="charts5" style="width: 100%;height:60%;text-align: center;"></div>
     <script type="text/javascript">
         var dom = document.getElementById("charts5");
         var myChart = echarts.init(dom);
@@ -257,7 +259,8 @@
                     position: 'top',
                     axisLabel: {
                         show: true,
-                        color: textColor
+                        color: textColor,
+                        interval:0
                     },
                     splitLine: {
                         show: true,
@@ -279,7 +282,8 @@
                     position: 'top',
                     axisLabel: {
                         show: true,
-                        color: textColor
+                        color: textColor,
+                        interval:0
                     },
                     splitLine: {
                         show: true,
@@ -851,7 +855,13 @@
                 ['三线城市', 1.00, 2.03, 1.08]
             ]
         },
-        xAxis: {type: 'category'},
+
+        xAxis: {
+            type: 'category',
+            axisLabel: {
+                interval:0,
+                rotate:40
+            },},
         yAxis: {},
         series: [
             {type: 'bar'},
