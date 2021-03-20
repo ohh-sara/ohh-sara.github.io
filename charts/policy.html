@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@1/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@1/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/world.js"></script>
+    <script type="text/javascript" src="https://oisanjavax.github.io/echarts-wordcloud/dist/echarts-wordcloud.min.js"></script>
+    <style>
+        body{
+            background:url('');
+            background-size: cover;
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="charts1" style="width: 100%;height:100%;text-align: center"></div>
+<script type="text/javascript">
+    var dom = document.getElementById("charts1");
+    var myChart = echarts.init(dom);
+    var app = {};
+
+    var data = {
+        "name": "政策要点",
+        "children": [
+            {
+                "name": "就业管理",
+                "children": [
+                    {
+                        "name": "适当延迟录用接收。引导用人单位推迟面试体检和签约录取时间。对延迟离校的应届毕业生，相应延长报到接收、档案转递、落户办理时限。（国办发〔2020〕6号）",
+                    },
+                    {
+                        "name": "离校未就业毕业生可根据本人意愿，将户口、档案在学校保留2年或转入生源地公共就业人才服务机构，以应届毕业生身份参加用人单位考试、录用，落实工作单位后\n参照应届毕业生办理相关手续。（国办发〔2020〕6号）",
+                    },
+                    {
+                        "name": "适当延长毕业生择业时间。各地各高校可视情况适当延长就业签约时间，及时为已落实工作单位的毕业生办理就业手续。（教学〔2020〕2号）"
+                    }
+                ]
+            },
+            {
+                "name": "招聘活动",
+                "children": [
+                    {"name": "教育系统在疫情没有得到有效缓解之前，要暂停举办各类高校毕业生现场招聘活动。要充分利用部、省、校三级联通的就业网络体系以及社会招聘网站，\n联合举办“2020届高校毕业生全国网络联合招聘——24365校园招聘服务”活动（24小时365天招聘活动），各地各高校要组织毕业生积极参加上述\n网上招聘活动。（教学〔2020〕2号）"},
+                ]
+            },
+            {
+                "name": "基层就业",
+                "children": [
+                    {"name": "扩大“三支一扶”计划等基层服务项目招募规模。（国办发〔2020〕6号）"},
+                    {"name": "出台改革措施，允许部分专业高校毕业生免试取得相关职业资格证书。畅通民营企业专业技术职称评审渠道。（国办发〔2020〕6号）"},
+                    {"name": "对今明两年经省级人力资源社会保障部门统一组织招募参加“三支一扶”计划，服务期满且考核合格的人员，所在基层事业单位有岗位空缺的可以直接聘用，并不再约定\n试用期。（人社厅发〔2020〕27号）"},
+                ]
+            },
+            {
+                "name": "招收录用",
+                "children": [
+                    {"name": "国有企业今明两年连续扩大高校毕业生招聘规模，不得随意毁约，不得将本单位实习期限作为招聘入职的前提条件。（国办发〔2020〕6号）"},
+                    {"name": "各级事业单位空缺岗位今明两年提高专项招聘高校毕业生的比例。（国办发〔2020〕6号）"},
+                    {"name": "今明两年事业单位空缺岗位主要用于专项招聘高校毕业生（含择业期内未落实工作单位的高校毕业生）。（人社厅发〔2020〕27号）"},
+                    {"name": "对疫情高、中风险地区高校毕业生报名参加事业单位公开招聘的，暂不组织现场笔试、面试，以适当方式开展线上笔试、面试。（人社厅发〔2020〕27号）"},
+                    {"name": "艰苦边远地区乡镇事业单位招聘本科以上高校毕业生、县级事业单位招聘硕士以上高校毕业生，以及招聘行业、岗位、脱贫攻坚急需紧缺专业高校毕业生，\n可以结合实际情况，采取面试、直接考察的方式公开招聘；可以根据应聘人员报名、专业分布等情况适当降低开考比例，或不设开考比例，划定成绩合格线。\n（人社厅发〔2020〕27号）"},
+                ]
+            },
+            {
+                "name": "参军入伍",
+                "children": [
+                    {"name": "扩大大学生应征入伍规模，健全参军入伍激励政策，大力提高应届毕业生征集比例。（国办发〔2020〕6号）"},
+                    {"name": "推迟上半年征兵工作。将2020年上半年征兵工作推迟至下半年一并组织实施，上半年征兵任务合并至下半年一并完成，新兵分拨计划上下半年合并组织。征集时间\n调整为8月1日开始，9月10日起运新兵，9月30日结束。新兵批准入伍时间和军龄起算时间统一为2020年9月1日。（来源于广东省人民政府征兵办公室有关公告）"},
+                    {"name": "应征男青年报名截止2020年8月1日，已完成上半年报名的将自动转入下半年应征报名；应征女青年报名截止2020年8月5日，已完成上半年报名的，\n除年满23周岁的2019届应届大学毕业女青年外，其他人员自动转入下半年应征报名。（来源于广东省人民政府征兵办公室有关公告）"},
+                ]
+            },
+            {
+                "name": "升学考试",
+                "children": [
+                    {
+                        "name": "硕士研究生招生 普通高等学校专升本",
+                        "children": [
+                            {
+                                "name": "增加毕业生升学深造机会。扩大今年硕士研究生招生规模，主要向国家战略和民生领域急需的临床医学、公共卫生与预防医学、集成电路、软件、新材料、先进制造、\n人工智能等相关学科和专业学位类别倾斜，向中西部和东北地区高校倾斜。扩大今年普通高等学校专升本规模，主要由职业教育本科和应用型本科高校向产业升级和\n改善民生急需的专业招生，向电子信息类、计算机类、生物医学工程类和预防医学、健康服务与管理、应急管理、养老服务管理、护理等专业倾斜。（教学〔2020〕2号）",
+                            }
+                        ]
+                    },
+                    {
+                        "name": "同等学力人员申请硕士学位",
+                        "children": [
+                            {
+                                "name": "推迟原定3月2日开始的2020年同等学力人员申请硕士学位外国语水平和学科综合水平全国统一考试报名工作，具体报名时间另行通知。原定5月24日的考试时间是否推迟\n将视疫情防控进展情况确定。（来源于国务院学位委员会办公室有关通知）",
+                            }
+                        ]
+                    },
+                    {
+                        "name": "中小学教师资格考试",
+                        "children": [
+                            {
+                                "name": "原定于3月中旬进行的2020年上半年中小学教师资格考试和教师资格认定工作推迟举行，\n具体考试时间和认定报名时间将根据疫情防控进展情况另行通知。（来源于教育部有关公告）",
+                            }
+                        ]
+                    },
+                    {
+                        "name": "本科插班生考试",
+                        "children": [
+                            {
+                                "name": "广东省推迟原定于3月7日至8日举行的本科插班生考试（含三二分段专升本转段考试）。具体时间安排视疫情控制情况另行通知。（来源于广东省招生委员会办公室有关通知）",
+                            }
+                        ]
+                    },
+                    {
+                        "name": "自学考试",
+                        "children": [
+                            {
+                                "name": "原定于4月11日至12日举行的自学考试推迟举行，原定于3月2日至13日期间进行的2020年4月自学考试新生报名和考生报考推迟进行，\n具体时间将根据疫情防控进展情况，依照教育部安排另行通知。请广东省考生密切关注广东省教育考试院官方网站（http://eea.gd.gov.cn）\n以及微信公众号（ID：gdsksy）发布的后续信息。（来源于教育部有关公告）",
+                            }
+                        ]
+                    },
+                    {
+                        "name": "成人高等教育",
+                        "children": [
+                            {
+                                "name": "原定于3月份报名、4月份考试的2020年成人高等教育本科毕业生申请学士学位外国语水平全省统一考试延迟，具体报名时间、报名方式及考试时间另行通知。广东省考生\n可关注广东省教育考试院官方网站、微信公众号及广东教育考试服务网（http://www.eesc.com.cn）相关公告。（来源于教育部有关公告）",
+                            }
+                        ]
+                    },
+                    
+                ]
+            },
+            {
+                "name": "就业帮扶",
+                "children": [
+                    {"name": "对湖北高校及湖北籍2020届高校毕业生给予一次性求职创业补贴，湖北省各级事业单位可面向湖北高校及湖北籍高校毕业生开展专项招聘，\n高校毕业生基层服务项目向湖北省倾斜。（国办发〔2020〕6号）"},
+                    {"name": "强化湖北等重点地区就业帮扶。扩大农村义务教育阶段学校教师特设岗位计划在湖北高校招募规模。配合有关部门，增加中央基层项目在湖北高校的招募计划。\n更大力度扩大湖北省普通高校专升本招生计划。举办面向湖北高校以及湖北籍学生的专场网上招聘活动，高校要协调用人单位适当延长招聘时间、推迟体检时间、\n推迟签约录取。（教学〔2020〕2号）"},
+                ]
+            },
+            {
+                "name": "权益维护",
+                "children": [
+                    {"name": "在教育系统招聘活动中，不得发布拒绝招录疫情严重地区高校毕业生的招聘信息。（教学〔2020〕2号）"},
+                ]
+            }
+        ]
+    };
+
+    var option = {
+        title: {
+            text: '2020年疫情防控期间高校毕业生就业创业新政汇总',
+            top: '4%',
+            left:'50%',
+            textAlign: 'center',
+            textStyle: {
+                fontSize: '20',
+                color: '#32312f',
+                textAlign: 'center',
+                fontWeight: '60',
+            },
+        },
+        tooltip: {
+            trigger: 'item',
+            triggerOn: 'mousemove'
+        },
+        series:[
+            {
+                type: 'tree',
+                id: 0,
+                name: 'tree1',
+                data: [data],
+
+                top: '10%',
+                left: '8%',
+                bottom: '22%',
+                right: '72%',
+
+                symbolSize: 7,
+
+                //edgeShape: 'polyline',
+                edgeForkPosition: '63%',
+                initialTreeDepth: 1,
+
+                lineStyle: {
+                    width: 2
+                },
+
+                label: {
+                    backgroundColor: '#fff',
+                    position: 'left',
+                    verticalAlign: 'middle',
+                    align: 'right',
+
+                },
+
+                leaves: {
+                    label: {
+                        position: 'right',
+                        verticalAlign: 'middle',
+                        align: 'left'
+                    }
+                },
+
+                emphasis: {
+                    focus: 'series'
+                },
+
+                expandAndCollapse: true,
+                animationDuration: 550,
+                animationDurationUpdate: 750
+            }
+        ]
+    };
+
+
+    echarts.init(document.getElementById("charts1")).setOption(option, true);
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@1/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@1/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/world.js"></script>
+    <script type="text/javascript" src="https://oisanjavax.github.io/echarts-wordcloud/dist/echarts-wordcloud.min.js"></script>
+    <style>
+        body{
+            background:url('');
+            background-size: cover;
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="charts5" style="width: 100%;height:100%;text-align: center"></div>
+<script type="text/javascript">
+    var dom = document.getElementById("charts5");
+    var myChart = echarts.init(dom);
+    var app = {};
+
+    var xData = ['教育/培训', '能源/矿产', '中介服务', '印刷/包装', '保险', '环保', '娱乐/体育', '电气/电力', '咨询/法律', '礼品/玩具', '电子商务', '检验/认证', '外包服务', '仪器仪表', '电子技术', '硬件加工', '房地产', '石油/石化', '酒店', '办公设备'];
+    var lastYearData = [,0.28,,0.37,,0.42,,0.44,,0.47,,0.51,,0.51,,0.52,,0.53,,0.59];
+    var thisYearData = [4.76,,4.74,,3.74,,3.13,,2.68,,2.66,,2.54,,2.09,,2.09,,2.00];
+    var legend = ['景气值较差行业', '景气值较好行业'];
+    var background = "#ffffff";
+    var textColor = "#5a5a5a";
+    var lineColor = "rgba(255,255,255,0.2)";
+    var colors = [{
+        borderColor: "rgba(227,161,96,1)",
+        start: "rgba(227,161,96,0.8)",
+        end: "rgba(227,161,96,0.3)"
+    },
+        {
+            borderColor: "rgba(0,222,255,1)",
+            start: "rgba(0,222,255,0.3)",
+            end: "rgba(0,222,255,0.8)"
+        },
+    ];
+
+    var option = {
+        baseOption: {
+            title: {
+                text: '2020一季度就业景气较好/较差的行业',
+                top: '4%',
+                left:'50%',
+                textAlign: 'center',
+                textStyle: {
+                    fontSize: '20',
+                    color: '#32312f',
+                    textAlign: 'center',
+                    fontWeight: '60',
+                },
+            },
+            backgroundColor: background,
+            timeline: {
+                show: false,
+                top: 0,
+                data: []
+            },
+            legend: {
+                top: '5%',
+                right: '5%',
+                itemWidth: 20,
+                itemHeight: 5,
+                icon: 'horizontal',
+                textStyle: {
+                    color: '#5a5a5a',
+                    fontSize: 20,
+                },
+                data: legend
+            },
+            grid: [{
+                show: false,
+                left: '3%',
+                top: '14%',
+                bottom: '5%',
+                containLabel: true,
+                width: '43%'
+            }, {
+                show: false,
+                left: '50%',
+                top: '17.5%',
+                bottom: '4.5%',
+                width: '100%',
+                containLabel: false,
+            }, {
+                show: false,
+                right: '4%',
+                top: '14%',
+                bottom: '5%',
+                containLabel: true,
+                width: '43%'
+            }],
+            xAxis: [{
+                type: 'value',
+                inverse: true,
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                position: 'top',
+                axisLabel: {
+                    show: true,
+                    color: textColor
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: lineColor
+                    }
+                },
+            }, {
+                gridIndex: 1,
+                show: false
+            }, {
+                gridIndex: 2,
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                position: 'top',
+                axisLabel: {
+                    show: true,
+                    color: textColor
+                },
+                splitLine: {
+                    show: true,
+                    lineStyle: {
+                        color: lineColor
+                    }
+                },
+            }],
+            yAxis: [{
+                type: 'category',
+                inverse: true,
+                position: 'right',
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: lineColor
+                    }
+                },
+
+                axisTick: {
+                    show: true
+                },
+                axisLabel: {
+                    show: false
+                },
+                data: xData
+            }, {
+                gridIndex: 1,
+                type: 'category',
+                inverse: true,
+                position: 'left',
+                axisLine: {
+                    show: true
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    show: true,
+                    padding: [0, 0, 0, 5],
+                    textStyle: {
+                        color: '#5a5a5a',
+                        fontSize: 13
+                    },
+                    align: "center"
+
+                },
+                data: xData.map(function(value) {
+                    return {
+                        value: value,
+                        textStyle: {
+                            align: 'center'
+                        }
+                    }
+                })
+            }, {
+                gridIndex: 2,
+                type: 'category',
+                inverse: true,
+                position: 'left',
+                axisLine: {
+                    show: true,
+                    lineStyle: {
+                        color: lineColor
+                    }
+                },
+                axisTick: {
+                    show: true
+                },
+                axisLabel: {
+                    show: false
+
+                },
+                data: xData
+            }],
+            series: []
+
+        },
+        tooltip: {
+            trigger: 'axis',
+            axisPointer : {            
+                type : 'shadow'        
+            },
+            show: true,
+            formatter : function(params){  
+                console.log(params);
+                return params;
+            }
+        },
+        grid: {
+            right: 0,
+            left: 50
+        },
+        options: []
+    }
+
+    option.options.push({
+        series: [{
+            name: "景气值较差行业",
+            type: "bar",
+            barWidth: 12,
+            stack: "1",
+            itemStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                        offset: 0,
+                        color: colors[0].start
+                    },
+
+                        {
+                            offset: 1,
+                            color: colors[0].end
+                        }
+                    ]),
+                    label: {
+						show: true, 
+						position: 'left', 
+						textStyle: { 
+							color: '#5a5a5a',
+							fontSize: 16
+						}
+					}
+                },
+            },
+            data: lastYearData,
+        },
+            {
+                name: "景气值较好行业",
+                type: "bar",
+                stack: "2",
+                barWidth: 12,
+                xAxisIndex: 2,
+                yAxisIndex: 2,
+                itemStyle: {
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                            offset: 0,
+                            color: colors[1].start
+                        },
+                            {
+                                offset: 1,
+                                color: colors[1].end
+                            }
+                        ]),
+                        label: {
+                            show: true, 
+                            position: 'right', 
+                            textStyle: { 
+                                color: '#5a5a5a',
+                                fontSize: 16
+                            }
+                        }
+                    }
+                },
+                data: thisYearData,
+            },
+
+        ]
+    });
+
+    echarts.init(document.getElementById("charts5")).setOption(option, true);
+</script>
+
+
+</body>
+</html>

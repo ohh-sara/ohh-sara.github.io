@@ -21,152 +21,432 @@
 </head>
 <body style="height: 100%; margin: 0">
 
+<div style="float:left;width: 34%;height:100%;text-align: center;">
+    <div id="charts2" style="width: 100%;height:50%;text-align: center; "></div>
+    <script type="text/javascript">
+        var dom = document.getElementById("charts2");
+        var myChart = echarts.init(dom);
+        var app = {};
 
-<div id="charts2" style="float:left;width: 34%;height:50%;text-align: center; "></div>
-<script type="text/javascript">
-    var dom = document.getElementById("charts2");
-    var myChart = echarts.init(dom);
-    var app = {};
-
-    var xData = function() {
-        var data = [];
-        for (var i = 2011; i < 2020; i++) {
-            for(var j = 1; j < 5; j++){
-                data.push(i + "Q" + j);
+        var xData = function() {
+            var data = [];
+            for (var i = 2011; i < 2020; i++) {
+                for(var j = 1; j < 5; j++){
+                    data.push(i + "Q" + j);
+                }
             }
-        }
-        data.push("2020Q1");
-        return data;
-    }();
+            data.push("2020Q1");
+            return data;
+        }();
 
-    option = {
-        title: {
-            text: '季度求职申请、招聘需求人数和CIER指数变化',
-            top: '4%',
-            left:'50%',
-            textAlign: 'center',
-            textStyle: {
-                fontSize: '20',
-                color: '#32312f',
+        option = {
+            title: {
+                text: '季度求职申请、招聘需求人数和CIER指数变化',
+                top: '4%',
+                left:'50%',
                 textAlign: 'center',
-                fontWeight: '60',
+                textStyle: {
+                    fontSize: '20',
+                    color: '#32312f',
+                    textAlign: 'center',
+                    fontWeight: '60',
+                },
             },
-        },
-        backgroundColor: "#fff",
-        animationDuration: 10000,
-        tooltip: {
-            trigger: "axis",
-            axisPointer: {
-                type: "shadow",
+            backgroundColor: "#fff",
+            animationDuration: 10000,
+            tooltip: {
+                trigger: "axis",
+                axisPointer: {
+                    type: "shadow",
+                    textStyle: {
+                        color: "#fff"
+                    }
+
+                },
+            },
+            grid: {
+                borderWidth: 0,
+                top: 110,
+                bottom: 95,
                 textStyle: {
                     color: "#fff"
                 }
-
             },
-        },
-        grid: {
-            borderWidth: 0,
-            top: 110,
-            bottom: 95,
-            textStyle: {
-                color: "#fff"
-            }
-        },
-        legend: {
-            x: '38%',
-            top: '11%',
-            textStyle: {
-                color: '#90979c',
-            },
-            data: ['求职申请人数', '招聘需求人数', 'CIER指数']
-        },
-
-
-        calculable: true,
-        xAxis: [{
-            type: "category",
-            axisLabel: {
-                interval:3,
-                rotate:60,
+            legend: {
+                x: '38%',
+                top: '11%',
                 textStyle: {
-                    color: '#999'
+                    color: '#90979c',
+                },
+                data: ['求职申请人数', '招聘需求人数', 'CIER指数']
+            },
+
+
+            calculable: true,
+            xAxis: [{
+                type: "category",
+                axisLabel: {
+                    interval:3,
+                    rotate:60,
+                    textStyle: {
+                        color: '#999'
+                    }
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: "rgba(204,187,225,0.5)",
+                    }
+                },
+                splitLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                data: xData,
+            }],
+
+            yAxis: [
+                {
+                    type: 'value',
+                    name: '单位：百万人',
+                    min: 0,
+                    max: 250,
+                },
+                {
+                    type: 'value',
+                    name: 'CIER指数',
+                    min: 0,
+                    max: 3.5,
+                    interval: 0.7,
+                    nameTextStyle: {
+                        color: '#ccc'
+                    },
+                },
+            ],
+
+            series: [
+                {
+                    name: "求职申请人数",
+                    yAxisIndex: 0,
+                    type: "line",
+                    symbolSize: 10,
+                    symbol: 'circle',
+                    itemStyle: {
+                        color: "#6f7de3",
+                    },
+                    data: [36,37,38,37,48,48,49,49,46,50,52,50,52,53,54,50,53,56,65,63,59,73,78,67,79,74,72,67,75,87,82,70,72,88,88,74,78,82],
+                },
+                {
+                    name: "招聘需求人数",
+                    yAxisIndex: 0,
+                    type: "line",
+                    symbolSize: 10,
+                    symbol: 'circle',
+                    itemStyle: {
+                        color: "#c257F6",
+                    },
+                    data: [34.2, 38.8, 41.0, 44.4, 43.2, 45.6, 54.4, 71.1, 63.0, 67.5, 91.0, 105.5, 82.2, 91.2, 108.5, 120.5, 129.3, 113.7, 127.4, 131.7, 100.9, 140.9, 173.2, 161.5, 150.9, 167.2, 175.0, 195.0, 143.3, 163.6, 161.5, 166.6, 121.0, 166.3, 142.1, 170.0, 117.3]
+                },
+                {
+                    name: "CIER指数",
+                    yAxisIndex: 1,
+                    type: "line",
+                    symbolSize: 10,
+                    symbol: 'circle',
+                    itemStyle: {
+                        color: "#000",
+                    },
+                    data: [0.95,1.05,1.08,1.20,0.90,0.95,1.11,1.45,1.37,1.35,1.75,2.11,1.58,1.72,2.01,2.41,2.44,2.03,1.96,2.09,1.71,1.93,2.22,2.41,1.91,2.26,2.43,2.91,1.91,1.88,1.97,2.38,1.68,1.89,1.92,2.18,1.43]
+                },
+            ]
+        }
+
+
+        echarts.init(document.getElementById("charts2")).setOption(option, true);
+    </script>
+
+    <div id="charts5" style="width: 100%;height:50%;text-align: center;"></div>
+    <script type="text/javascript">
+        var dom = document.getElementById("charts5");
+        var myChart = echarts.init(dom);
+        var app = {};
+
+        var xData = ['教育/培训', '能源/矿产', '中介服务', '印刷/包装', '保险', '环保', '娱乐/体育', '电气/电力', '咨询/法律', '礼品/玩具', '电子商务', '检验/认证', '外包服务', '仪器仪表', '电子技术', '硬件加工', '房地产', '石油/石化', '酒店', '办公设备'];
+        var lastYearData = [,0.28,,0.37,,0.42,,0.44,,0.47,,0.51,,0.51,,0.52,,0.53,,0.59];
+        var thisYearData = [4.76,,4.74,,3.74,,3.13,,2.68,,2.66,,2.54,,2.09,,2.09,,2.00];
+        var legend = ['景气值较差行业', '景气值较好行业'];
+        var background = "#ffffff";
+        var textColor = "#5a5a5a";
+        var lineColor = "rgba(255,255,255,0.2)";
+        var colors = [{
+            borderColor: "rgba(227,161,96,1)",
+            start: "rgba(227,161,96,0.8)",
+            end: "rgba(227,161,96,0.3)"
+        },
+            {
+                borderColor: "rgba(0,222,255,1)",
+                start: "rgba(0,222,255,0.3)",
+                end: "rgba(0,222,255,0.8)"
+            },
+        ];
+
+        var option = {
+            baseOption: {
+                title: {
+                    text: '2020一季度就业景气较好/较差的行业',
+                    top: '0%',
+                    left:'50%',
+                    textAlign: 'center',
+                    textStyle: {
+                        fontSize: '20',
+                        color: '#32312f',
+                        textAlign: 'center',
+                        fontWeight: '60',
+                    },
+                },
+                backgroundColor: background,
+                timeline: {
+                    show: false,
+                    top: 0,
+                    data: []
+                },
+                legend: {
+                    top: '7%',
+                    right: '5%',
+                    itemWidth: 20,
+                    itemHeight: 5,
+                    icon: 'horizontal',
+                    textStyle: {
+                        color: '#5a5a5a',
+                        fontSize: 14,
+                    },
+                    data: legend
+                },
+                grid: [{
+                    show: false,
+                    left: '3%',
+                    top: '14%',
+                    bottom: '5%',
+                    containLabel: true,
+                    width: '43%'
+                }, {
+                    show: false,
+                    left: '50%',
+                    top: '17.5%',
+                    bottom: '4.5%',
+                    width: '100%',
+                    containLabel: false,
+                }, {
+                    show: false,
+                    right: '4%',
+                    top: '14%',
+                    bottom: '5%',
+                    containLabel: true,
+                    width: '43%'
+                }],
+                xAxis: [{
+                    type: 'value',
+                    inverse: true,
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    position: 'top',
+                    axisLabel: {
+                        show: true,
+                        color: textColor
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: lineColor
+                        }
+                    },
+                }, {
+                    gridIndex: 1,
+                    show: false
+                }, {
+                    gridIndex: 2,
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    position: 'top',
+                    axisLabel: {
+                        show: true,
+                        color: textColor
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: lineColor
+                        }
+                    },
+                }],
+                yAxis: [{
+                    type: 'category',
+                    inverse: true,
+                    position: 'right',
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: lineColor
+                        }
+                    },
+
+                    axisTick: {
+                        show: true
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    data: xData
+                }, {
+                    gridIndex: 1,
+                    type: 'category',
+                    inverse: true,
+                    position: 'left',
+                    axisLine: {
+                        show: true
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: true,
+                        padding: [0, 0, 0, 5],
+                        textStyle: {
+                            color: '#5a5a5a',
+                            fontSize: 13
+                        },
+                        align: "center"
+
+                    },
+                    data: xData.map(function(value) {
+                        return {
+                            value: value,
+                            textStyle: {
+                                align: 'center'
+                            }
+                        }
+                    })
+                }, {
+                    gridIndex: 2,
+                    type: 'category',
+                    inverse: true,
+                    position: 'left',
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: lineColor
+                        }
+                    },
+                    axisTick: {
+                        show: true
+                    },
+                    axisLabel: {
+                        show: false
+
+                    },
+                    data: xData
+                }],
+                series: []
+
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer : {
+                    type : 'shadow'
+                },
+                show: true,
+                formatter : function(params){
+                    console.log(params);
+                    return params;
                 }
             },
-            axisLine: {
-                lineStyle: {
-                    color: "rgba(204,187,225,0.5)",
-                }
+            grid: {
+                right: 0,
+                left: 50
             },
-            splitLine: {
-                show: false
-            },
-            axisTick: {
-                show: false
-            },
-            data: xData,
-        }],
+            options: []
+        }
 
-        yAxis: [
-            {
-                type: 'value',
-                name: '单位：百万人',
-                min: 0,
-                max: 250,
-            },
-            {
-                type: 'value',
-                name: 'CIER指数',
-                min: 0,
-                max: 3.5,
-                interval: 0.7,
-                nameTextStyle: {
-                    color: '#ccc'
-                },
-            },
-        ],
-
-        series: [
-            {
-                name: "求职申请人数",
-                yAxisIndex: 0,
-                type: "line",
-                symbolSize: 10,
-                symbol: 'circle',
+        option.options.push({
+            series: [{
+                name: "景气值较差行业",
+                type: "bar",
+                barWidth: 12,
+                stack: "1",
                 itemStyle: {
-                    color: "#6f7de3",
-                },
-                data: [36,37,38,37,48,48,49,49,46,50,52,50,52,53,54,50,53,56,65,63,59,73,78,67,79,74,72,67,75,87,82,70,72,88,88,74,78,82],
-            },
-            {
-                name: "招聘需求人数",
-                yAxisIndex: 0,
-                type: "line",
-                symbolSize: 10,
-                symbol: 'circle',
-                itemStyle: {
-                    color: "#c257F6",
-                },
-                data: [34.2, 38.8, 41.0, 44.4, 43.2, 45.6, 54.4, 71.1, 63.0, 67.5, 91.0, 105.5, 82.2, 91.2, 108.5, 120.5, 129.3, 113.7, 127.4, 131.7, 100.9, 140.9, 173.2, 161.5, 150.9, 167.2, 175.0, 195.0, 143.3, 163.6, 161.5, 166.6, 121.0, 166.3, 142.1, 170.0, 117.3]
-            },
-            {
-                name: "CIER指数",
-                yAxisIndex: 1,
-                type: "line",
-                symbolSize: 10,
-                symbol: 'circle',
-                itemStyle: {
-                    color: "#000",
-                },
-                data: [0.95,1.05,1.08,1.20,0.90,0.95,1.11,1.45,1.37,1.35,1.75,2.11,1.58,1.72,2.01,2.41,2.44,2.03,1.96,2.09,1.71,1.93,2.22,2.41,1.91,2.26,2.43,2.91,1.91,1.88,1.97,2.38,1.68,1.89,1.92,2.18,1.43]
-            },
-        ]
-    }
+                    normal: {
+                        color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                            offset: 0,
+                            color: colors[0].start
+                        },
 
+                            {
+                                offset: 1,
+                                color: colors[0].end
+                            }
+                        ]),
+                        label: {
+                            show: true,
+                            position: 'left',
+                            textStyle: {
+                                color: '#5a5a5a',
+                                fontSize: 16
+                            }
+                        }
+                    },
+                },
+                data: lastYearData,
+            },
+                {
+                    name: "景气值较好行业",
+                    type: "bar",
+                    stack: "2",
+                    barWidth: 12,
+                    xAxisIndex: 2,
+                    yAxisIndex: 2,
+                    itemStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 1, 0, [{
+                                offset: 0,
+                                color: colors[1].start
+                            },
+                                {
+                                    offset: 1,
+                                    color: colors[1].end
+                                }
+                            ]),
+                            label: {
+                                show: true,
+                                position: 'right',
+                                textStyle: {
+                                    color: '#5a5a5a',
+                                    fontSize: 16
+                                }
+                            }
+                        }
+                    },
+                    data: thisYearData,
+                },
 
-    echarts.init(document.getElementById("charts2")).setOption(option, true);
-</script>
+            ]
+        });
 
-<div id="charts1" style="float:left;width: 40%;height:80%;text-align: center; "></div>
+        echarts.init(document.getElementById("charts5")).setOption(option, true);
+    </script>
+</div>
+
+<div style="float:left;width: 40%;height:100%;text-align: center;">
+<div id="charts1" style="float:left;width: 100%;height:70%;text-align: center;margin: 0 auto; "></div>
+<div id="zhuzhuang" style="float:left;width: 100%;height:30%;margin: 0 auto;text-align: center"></div>
 <script type="text/javascript">
     var dom = document.getElementById("charts1");
     var myChart = echarts.init(dom);
@@ -373,24 +653,24 @@
 
     myChart.on('click',function(e){
         if(e.componentSubType == "bar3D"){
-            creatWrap();
+            //creatWrap();
             var divObj = document.createElement('div');
-            $(divObj).addClass('tongJiTu');
+            //$(divObj).addClass('tongJiTu');
             divObj.id = 'zhuzhuang';
             var divX = getMousePos()['x'];
             var divY = getMousePos()['y'];
-            $(divObj).css({
+            /*$(divObj).css({
                 'width': 250,
                 'height': 180,
                 'border': '1px solid #ccc',
                 'position': 'absolute',
                 'top': divY,
                 'left': divX
-            }).appendTo('.wrap');
+            }).appendTo('.wrap');*/
             var pointData = [];
             pointData.push([e.data.name,e.data.value.slice(2)]);
             zhuZhuangTu(pointData);
-            clearWrap('.zhedang');
+            //clearWrap('.zhedang');
         }
         return;
     });
@@ -414,7 +694,15 @@
             },
             title: {
                 text: data[0][0] + '省CIER指数对比',
-                left: 'center'
+                top: '0%',
+                left:'50%',
+                textAlign: 'center',
+                textStyle: {
+                    fontSize: '16',
+                    color: '#32312f',
+                    textAlign: 'center',
+                    fontWeight: '60',
+                },
             },
             xAxis: [
                 {
@@ -431,10 +719,14 @@
                     type: 'value'
                 }
             ],
+            grid: {
+                right: 0,
+                left: 50
+            },
             series: [
                 {
                     type: 'bar',
-                    barWidth: '50%',
+                    barWidth: '30%',
                     itemStyle: {
                         normal: {
                             color: function(params){
@@ -457,28 +749,9 @@
         zhuzhuang.setOption(option);
     }
 
-    function creatWrap(){
-        var zheDang = document.createElement('div');
-        $(zheDang).addClass('zhedang').css({
-            width: '100%',
-            height: '100%',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            backgroundColor: 'rgba(0,0,0,.2)'
-        }).appendTo('.wrap');
-    }
-
-    function clearWrap(id){
-        $(id).click(function(e){
-            this.remove();
-            $('.tongJiTu').remove();
-            return false;
-        });
-    }
-
     echarts.init(document.getElementById("charts1")).setOption(option, true);
 </script>
+</div>
 
 <div id="charts3" style="float:left;width: 25%;height:40%;text-align: center; "></div>
 <script type="text/javascript">
@@ -586,10 +859,6 @@
             {type: 'bar'}
         ]
     };
-
-
-
-
 
     echarts.init(document.getElementById("charts4")).setOption(option, true);
 </script>
