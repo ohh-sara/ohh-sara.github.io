@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html style="height: 100%">
 <head>
+    <title>就业去向</title>
+    <link rel="icon" type="image/x-ico" href="../images/logo1.png" />
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -137,6 +140,8 @@
             });
         }
 
+        console.log(myData);
+
         var convertData = function(data) {
             var res = [];
             for (var i = 0; i < data.length; i++) {
@@ -150,6 +155,8 @@
             }
             return res;
         };
+
+        console.log(convertData(myData))
 
         var barData = [];
         var categoryData = [];
@@ -220,13 +227,23 @@
                     width: '20%'
                 },
                 tooltip: {
-                    trigger: 'axis', // hover触发器
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
                         type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
                         shadowStyle: {
                             color: 'rgba(150,150,150,0.1)' //hover颜色
                         }
+                    },
+                    trigger: 'item',
+                    formatter: function(params) {
+                        if (params.seriesType == "bar"){
+                            return params.name + ": " + params.value + "%"
+                        }
+                        else{
+                            string = "地区：" + params.data.name + "<br>" + "占比：" + params.data.value[2] + "%";
+                            return string;
+                        }
                     }
+
                 },
                 geo: {
                     show: true,
@@ -267,7 +284,7 @@
                             areaColor: '#793e5b',
                             borderWidth: 0
                         }
-                    }
+                    },
                 },
             },
             options: [],
@@ -286,7 +303,7 @@
                 },
                 {
                     id: 'statistic',
-                    text: year[n] + "各城市就业人数中外省占比",
+                    text: year[n] + "各大城市就业人数中外省占比",
                     left: '78%',
                     top: '8%',
                     textStyle: {

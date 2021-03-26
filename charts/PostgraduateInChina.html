@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <title>国内升学去向</title>
+    <link rel="icon" type="image/x-ico" href="../images/logo1.png" />
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl@1/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat@1/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts@4/map/js/world.js"></script>
+    <script type="text/javascript" src="https://oisanjavax.github.io/echarts-wordcloud/dist/echarts-wordcloud.min.js"></script>
+    <style>
+        body{
+            background:url('');
+            background-size: cover;
+            height: 100%;
+        }
+    </style>
+</head>
+<body style="height: 100%; margin: 0">
+<div id="charts1" style="width: 100%;height:100%;text-align: center"></div>
+<script type="text/javascript">
+    var dom = document.getElementById("charts1");
+    var myChart = echarts.init(dom);
+    var app = {};
+
+    var year = ["2015","2016","2017", "2018", "2019"];
+    var geoCoordMap = {
+        "江苏": [118.8062, 31.9208],
+        "黑龙江": [127.9688, 45.368],
+        "内蒙古": [110.3467, 41.4899],
+        "吉林": [125.8154, 44.2584],
+        "北京": [116.4551, 40.2539],
+        "辽宁": [123.1238, 42.1216],
+        "河北": [114.4995, 38.1006],
+        "天津": [117.4219, 39.4189],
+        "山西": [112.3352, 37.9413],
+        "陕西": [109.1162, 34.2004],
+        "甘肃": [103.5901, 36.3043],
+        "宁夏": [106.3586, 38.1775],
+        "青海": [101.4038, 36.8207],
+        "新疆": [87.9236, 43.5883],
+        "四川": [103.9526, 30.7617],
+        "重庆": [108.384366, 30.439702],
+        "山东": [117.1582, 36.8701],
+        "河南": [113.4668, 34.6234],
+        "安徽": [117.29, 32.0581],
+        "湖北": [114.3896, 30.6628],
+        "浙江": [119.5313, 29.8773],
+        "福建": [119.4543, 25.9222],
+        "江西": [116.0046, 28.6633],
+        "湖南": [113.0823, 28.2568],
+        "贵州": [106.6992, 26.7682],
+        "云南": [102.9199, 25.4663],
+        "广东": [113.12244, 23.009505],
+        "广西": [108.479, 23.1152],
+        "海南": [110.3893, 19.8516],
+        "上海": [121.4648, 31.2891],
+        "西藏": [91.11, 29.97],
+    };
+
+    //2015年
+    var d1=[
+        {name:"北京",value:81242},
+        {name:"天津",value:15877},
+        {name:"河北",value:13458},
+        {name:"山西",value:9272},
+        {name:"内蒙古",value:5928},
+        {name:"辽宁",value:30271},
+        {name:"吉林",value:16895},
+        {name:"黑龙江",value:18602},
+        {name:"上海",value:39512},
+        {name:"江苏",value:45239},
+        {name:"浙江",value:19075},
+        {name:"安徽",value:16158},
+        {name:"福建",value:12030},
+        {name:"江西",value:10017},
+        {name:"山东",value:25523},
+        {name:"河南",value:13061},
+        {name:"湖北",value:35110},
+        {name:"湖南",value:19504},
+        {name:"重庆",value:15948},
+        {name:"四川",value:25929},
+        {name:"贵州",value:5272},
+        {name:"云南",value:10273},
+        {name:"西藏",value:482},
+        {name:"陕西",value:29705},
+        {name:"甘肃",value:9264},
+        {name:"青海",value:1183},
+        {name:"宁夏",value:1647},
+        {name:"新疆",value:6212},
+        {name:"广东",value:27110},
+        {name:"广西",value:9351},
+        {name:"海南",value:1489}, 
+    ];
+ 
+    //2016年
+    var d2=[
+        {name:"北京",value:83005},
+        {name:"天津",value:16503},
+        {name:"河北",value:13815},
+        {name:"山西",value:9547},
+        {name:"内蒙古",value:6126},
+        {name:"辽宁",value:30942},
+        {name:"吉林",value:17426},
+        {name:"黑龙江",value:19251},
+        {name:"上海",value:42270},
+        {name:"江苏",value:47057},
+        {name:"浙江",value:19666},
+        {name:"安徽",value:16580},
+        {name:"福建",value:12743},
+        {name:"江西",value:10425},
+        {name:"山东",value:26434},
+        {name:"河南",value:13639},
+        {name:"湖北",value:35253},
+        {name:"湖南",value:20034},
+        {name:"重庆",value:16230},
+        {name:"四川",value:26434},
+        {name:"贵州",value:5565},
+        {name:"云南",value:10629},
+        {name:"西藏",value:557},
+        {name:"陕西",value:30479},
+        {name:"甘肃",value:9826},
+        {name:"青海",value:1272},
+        {name:"宁夏",value:1743},
+        {name:"新疆",value:6430},
+        {name:"广东",value:28651},
+        {name:"广西",value:9699},
+        {name:"海南",value:1581}, 
+    ];
+
+    //2017年
+    var d3=[
+        {name:"北京",value:96399},
+        {name:"天津",value:20859},
+        {name:"河北",value:16438},
+        {name:"山西",value:11563},
+        {name:"内蒙古",value:7884},
+        {name:"辽宁",value:36510},
+        {name:"吉林",value:20677},
+        {name:"黑龙江",value:22229},
+        {name:"上海",value:51817},
+        {name:"江苏",value:57961},
+        {name:"浙江",value:24538},
+        {name:"安徽",value:20013},
+        {name:"福建",value:16134},
+        {name:"江西",value:13100},
+        {name:"山东",value:33252},
+        {name:"河南",value:17704},
+        {name:"湖北",value:45947},
+        {name:"湖南",value:25075},
+        {name:"重庆",value:20983},
+        {name:"四川",value:33456},
+        {name:"贵州",value:6902},
+        {name:"云南",value:13396},
+        {name:"西藏",value:672},
+        {name:"陕西",value:36655},
+        {name:"甘肃",value:11868},
+        {name:"青海",value:1665},
+        {name:"宁夏",value:2189},
+        {name:"新疆",value:7684},
+        {name:"广东",value:34835},
+        {name:"广西",value:11648},
+        {name:"海南",value:2172}, 
+    ];
+
+    //2018年
+    var d4=[
+        {name:"北京",value:99905},
+        {name:"天津",value:22101},
+        {name:"河北",value:17480},
+        {name:"山西",value:12071},
+        {name:"内蒙古",value:8035},
+        {name:"辽宁",value:38239},
+        {name:"吉林",value:21531},
+        {name:"黑龙江",value:23292},
+        {name:"上海",value:54596},
+        {name:"江苏",value:61662},
+        {name:"浙江",value:26421},
+        {name:"安徽",value:21276},
+        {name:"福建",value:17108},
+        {name:"江西",value:14204},
+        {name:"山东",value:35133},
+        {name:"河南",value:19247},
+        {name:"湖北",value:46205},
+        {name:"湖南",value:25801},
+        {name:"重庆",value:22456},
+        {name:"四川",value:35199},
+        {name:"贵州",value:7568},
+        {name:"云南",value:14441},
+        {name:"西藏",value:799},
+        {name:"陕西",value:38860},
+        {name:"甘肃",value:12800},
+        {name:"青海",value:2014},
+        {name:"宁夏",value:2535},
+        {name:"新疆",value:8620},
+        {name:"广东",value:37763},
+        {name:"广西",value:12642},
+        {name:"海南",value:2460}, 
+    ];
+
+    //2019年
+    var d5=[
+        {name:"北京",value:105143},
+        {name:"天津",value:22368},
+        {name:"河北",value:19146},
+        {name:"山西",value:13385},
+        {name:"内蒙古",value:9051},
+        {name:"辽宁",value:40868},
+        {name:"吉林",value:22713},
+        {name:"黑龙江",value:24479},
+        {name:"上海",value:57462},
+        {name:"江苏",value:65315},
+        {name:"浙江",value:27739},
+        {name:"安徽",value:22737},
+        {name:"福建",value:18232},
+        {name:"江西",value:15309},
+        {name:"山东",value:37653},
+        {name:"河南",value:20025},
+        {name:"湖北",value:47986},
+        {name:"湖南",value:26714},
+        {name:"重庆",value:23403},
+        {name:"四川",value:37439},
+        {name:"贵州",value:8118},
+        {name:"云南",value:15754},
+        {name:"西藏",value:886},
+        {name:"陕西",value:43055},
+        {name:"甘肃",value:13778},
+        {name:"青海",value:2337},
+        {name:"宁夏",value:3089},
+        {name:"新疆",value:9609},
+        {name:"广东",value:40879},
+        {name:"广西",value:13710},
+        {name:"海南",value:2952}, 
+    ];
+    
+
+    
+    var myData = [
+        d1,
+        d2,
+        d3,
+        d4,
+        d5
+    ];
+
+    var max = 480,
+        min = 9; 
+    var maxSize4Pin = 100,
+        minSize4Pin = 20;
+
+    //2015年
+    var data1={
+        "北京":81242,
+        "天津":15877,
+        "河北":13458,
+        "山西":9272,
+        "内蒙古":5928,
+        "辽宁":30271,
+        "吉林":16895,
+        "黑龙江":18602,
+        "上海":39512,
+        "江苏":45239,
+        "浙江":19075,
+        "安徽":16158,
+        "福建":12030,
+        "江西":10017,
+        "山东":25523,
+        "河南":13061,
+        "湖北":35110,
+        "湖南":19504,
+        "重庆":15948,
+        "四川":25929,
+        "贵州":5272,
+        "云南":10273,
+        "西藏":482,
+        "陕西":29705,
+        "甘肃":9264,
+        "青海":1183,
+        "宁夏":1647,
+        "新疆":6212,
+        "广东":27110,
+        "广西":9351,
+        "海南":1489, 
+    };
+
+    //2016年
+    var data2={
+        "北京":83005,
+        "天津":16503,
+        "河北":13815,
+        "山西":9547,
+        "内蒙古":6126,
+        "辽宁":30942,
+        "吉林":17426,
+        "黑龙江":19251,
+        "上海":42270,
+        "江苏":47057,
+        "浙江":19666,
+        "安徽":16580,
+        "福建":12743,
+        "江西":10425,
+        "山东":26434,
+        "河南":13639,
+        "湖北":35253,
+        "湖南":20034,
+        "重庆":16230,
+        "四川":26434,
+        "贵州":5565,
+        "云南":10629,
+        "西藏":557,
+        "陕西":30479,
+        "甘肃":9826,
+        "青海":1272,
+        "宁夏":1743,
+        "新疆":6430,
+        "广东":28651,
+        "广西":9699,
+        "海南":1581, 
+    };
+
+    //2017年
+    var data3={
+        "北京":96399,
+        "天津":20859,
+        "河北":16438,
+        "山西":11563,
+        "内蒙古":7884,
+        "辽宁":36510,
+        "吉林":20677,
+        "黑龙江":22229,
+        "上海":51817,
+        "江苏":57961,
+        "浙江":24538,
+        "安徽":20013,
+        "福建":16134,
+        "江西":13100,
+        "山东":33252,
+        "河南":17704,
+        "湖北":45947,
+        "湖南":25075,
+        "重庆":20983,
+        "四川":33456,
+        "贵州":6902,
+        "云南":13396,
+        "西藏":672,
+        "陕西":36655,
+        "甘肃":11868,
+        "青海":1665,
+        "宁夏":2189,
+        "新疆":7684,
+        "广东":34835,
+        "广西":11648,
+        "海南":2172, 
+    };
+
+    //2018年
+    var data4={
+        "北京":99905,
+        "天津":22101,
+        "河北":17480,
+        "山西":12071,
+        "内蒙古":8035,
+        "辽宁":38239,
+        "吉林":21531,
+        "黑龙江":23292,
+        "上海":54596,
+        "江苏":61662,
+        "浙江":26421,
+        "安徽":21276,
+        "福建":17108,
+        "江西":14204,
+        "山东":35133,
+        "河南":19247,
+        "湖北":46205,
+        "湖南":25801,
+        "重庆":22456,
+        "四川":35199,
+        "贵州":7568,
+        "云南":14441,
+        "西藏":799,
+        "陕西":38860,
+        "甘肃":12800,
+        "青海":2014,
+        "宁夏":2535,
+        "新疆":8620,
+        "广东":37763,
+        "广西":12642,
+        "海南":2460, 
+    };
+
+    //2019年
+    var data5={
+        "北京":105143,
+        "天津":22368,
+        "河北":19146,
+        "山西":13385,
+        "内蒙古":9051,
+        "辽宁":40868,
+        "吉林":22713,
+        "黑龙江":24479,
+        "上海":57462,
+        "江苏":65315,
+        "浙江":27739,
+        "安徽":22737,
+        "福建":18232,
+        "江西":15309,
+        "山东":37653,
+        "河南":20025,
+        "湖北":47986,
+        "湖南":26714,
+        "重庆":23403,
+        "四川":37439,
+        "贵州":8118,
+        "云南":15754,
+        "西藏":886,
+        "陕西":43055,
+        "甘肃":13778,
+        "青海":2337,
+        "宁夏":3089,
+        "新疆":9609,
+        "广东":40879,
+        "广西":13710,
+        "海南":2952, 
+    };
+
+
+    var data = [
+            [],
+            [],
+            [],
+            [],
+            []
+    ];
+    
+    for (var key in geoCoordMap) {
+        data[0].push({
+            "year": '2015',
+            "name": key,
+            "value": data1[key],
+        });
+        data[1].push({
+            "year": '2016',
+            "name": key,
+            "value": data2[key],
+        });
+        data[2].push({
+            "year": '2017',
+            "name": key,
+            "value": data3[key],
+        });
+        data[3].push({
+            "year": '2018',
+            "name": key,
+            "value": data4[key],
+        });
+        data[4].push({
+            "year": '2019',
+            "name": key,
+            "value": data5[key],
+        });
+    }
+
+
+
+
+    var convertData = function(data) {
+        var res = [];
+        for (var i = 0; i < data.length; i++) {
+            var geoCoord = geoCoordMap[data[i].name];
+            if (geoCoord) {
+                res.push({
+                    name: data[i].name,
+                    value: geoCoord.concat(data[i].value)
+                });
+            }
+        }
+        return res;
+    };
+
+       
+
+
+    var option = {
+        timeline: {
+            data: year,
+            axisType: 'category',
+            autoPlay: true,
+            playInterval: 8000,
+            left: '10%',
+            right: '10%',
+            bottom: '3%',
+            width: '80%',
+            label: {
+                normal: {
+                    textStyle: {
+                        color: '#000'
+                        }
+                },
+                emphasis: {
+                    textStyle: {
+                        color: '#fff'
+                    }
+                }
+            },
+            symbolSize: 10,
+            lineStyle: {
+                color: '#000'
+            },
+            checkpointStyle: {
+                borderColor: '#000',
+                borderWidth: 2
+            },
+            controlStyle: {
+                showNextBtn: true,
+                showPrevBtn: true,
+                normal: {
+                    color: '#fff',
+                    borderColor: '#bbb'
+                },
+                emphasis: {
+                    color: '#fff',
+                    borderColor: '#fff'
+                }
+            },
+        },
+        baseOption: {
+
+            visualMap: {
+                show: true,
+                min: 482,
+                max: 105143,
+                left: 'left',
+                top: 'bottom',
+                text: ['高', '低'], 
+                calculable: true,
+                seriesIndex: [1],
+                inRange: {
+                    color: ['#A5CC82','#00467F'] 
+                }
+            },
+
+            geo: {
+                show: true,
+                map: 'china',
+                label: {
+                    normal: {
+                        show: false
+                    },
+                    emphasis: {
+                        show: false,
+                    }
+                },
+                roam: true,
+                itemStyle: {
+                    normal: {
+                        areaColor: '#031525',
+                        borderColor: '#3B5077',
+                    },
+                    emphasis: {
+                        areaColor: '#2B91B7',
+                    }
+                },
+            },
+
+            tooltip: {
+                trigger: 'item',
+                formatter: function(params) {
+                    if (typeof(params.data.value)[2] != "undefined") {
+                        string = "地区：" + params.data.name + "<br>" + "人数：" + params.data.value[2];
+                        return string;
+                    }
+                }
+            }
+            
+        },
+
+        options: [],
+    };
+    
+    for (var n = 0; n < year.length; n++) {
+        option.options.push({
+            backgroundColor: '#ffffff',
+            title: [
+                {
+                    id: 'statistic',
+                    text: year[n] + "年毕业生国内升学去向",
+                    left: '40%',
+                    top: '5%',
+                    textStyle: {
+                        color: '#000',
+                        fontSize: 18
+                    }
+                }
+            ],
+
+            series: [
+                {
+                    name: '散点',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    data: convertData(myData[n]),
+                    label: {
+                        normal: {
+                            formatter: '{b}',
+                            position: 'right',
+                            show: true,
+                            color: '#fff',
+                            fontSize: 9
+                        },
+                        emphasis: {
+                            show: true
+                        }
+                    },
+                },
+                {
+                    type: 'map',
+                    map: 'china',
+                    geoIndex: 0,
+                    aspectScale: 0.75, 
+                    showLegendSymbol: false, 
+                    label: {
+                        normal: {
+                            show: true
+                        },
+                        emphasis: {
+                            show: false,
+                            textStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    roam: true,
+                    itemStyle: {
+                        normal: {
+                            areaColor: '#031525',
+                            borderColor: '#3B5077',
+                        },
+                        emphasis: {
+                            areaColor: '#2B91B7'
+                        }
+                    },
+                    animation: false,
+                    data: myData[n],
+                },
+                {
+                    name: '点',
+                    type: 'scatter',
+                    coordinateSystem: 'geo',
+                    symbol: 'pin', 
+                    symbolSize: function(val) {
+                        var a = (maxSize4Pin - minSize4Pin) / (max - min);
+                        var b = minSize4Pin - a * min;
+                        b = maxSize4Pin - a * max;
+                        return (a * val[2] + b) / 120;
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: '#F62157', 
+                        }
+                    },
+                    zlevel: 6,
+                    data: convertData(myData[n]),
+                },
+                {
+                    name: 'Top 5',
+                    type: 'effectScatter',
+                    coordinateSystem: 'geo',
+                    data: convertData(data[n].sort(function(a, b) {
+                        return b.value - a.value;
+                    }).slice(0, 5)),
+                    symbolSize: function(val) {
+                        return val[2] / 2000;
+                    },
+                    showEffectOn: 'render',
+                    rippleEffect: {
+                        brushType: 'stroke'
+                    },
+                    hoverAnimation: true,
+                    label: {
+                        normal: {
+                            formatter: '{b}',
+                            position: 'right',
+                            show: true
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            color: 'yellow',
+                            shadowBlur: 10,
+                            shadowColor: 'yellow'
+                        }
+                    },
+                    zlevel: 1
+                },
+                        
+            ]
+        });
+    }
+    echarts.init(document.getElementById("charts1")).setOption(option, true);
+</script>
+
+
+</body>
+</html>
